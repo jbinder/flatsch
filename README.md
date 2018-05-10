@@ -1,7 +1,7 @@
 flatsch
 =======
 
-Friendly reminds you to blink frequently to keeping your eyes healthy.
+Friendly reminds you to blink frequently for keeping your eyes healthy.
 
 > WARNING: This app may potentially trigger seizures for people with photosensitive epilepsy. Please take care!
 
