@@ -83,5 +83,10 @@ namespace Flatsch
             Dispatcher.Invoke(() => { Visibility = Visibility.Visible; });
             SetHideWindowTimer();
         }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
