@@ -23,6 +23,7 @@ namespace Flatsch
     {
         private const int ShowWindowTime = 200;
         private const int HideWindowTime = 3000;
+        private Brush _lastBackground;
 
         private readonly Timer _timer = new Timer();
 
@@ -84,7 +85,18 @@ namespace Flatsch
             SetHideWindowTimer();
         }
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        private void MenuItemTransparent_OnClick(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem) sender;
+            if (!item.IsChecked)
+            {
+                _lastBackground = item.Background;
+            }
+            Dispatcher.Invoke(() => { Background = item.IsChecked ? _lastBackground : Brushes.Transparent; });
+            item.IsChecked = !item.IsChecked;
+        }
+
+        private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

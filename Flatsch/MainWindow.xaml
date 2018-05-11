@@ -22,7 +22,8 @@
                 ToolTipText="flatsch">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Quit" Click="MenuItem_OnClick"/>
+                        <MenuItem Name="MenuItemTransparent" Header="Transparent" Click="MenuItemTransparent_OnClick" />
+                        <MenuItem Name="MenuItemQuit" Header="Quit" Click="MenuItemQuit_OnClick" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
