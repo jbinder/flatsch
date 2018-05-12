@@ -14,19 +14,21 @@
         Deactivated="MainWindow_OnDeactivated"
         Loaded="MainWindow_OnLoaded"
 >
-    <Viewbox StretchDirection="Both" Stretch="Uniform">
+    <Viewbox StretchDirection="Both" Stretch="None">
         <Grid>
-            <Label Content="blink!!! 👿" />
+            <!--<Label Content="blink!!! 👿" />-->
             <tb:TaskbarIcon
                 IconSource="/res/icon.ico"
                 ToolTipText="flatsch">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Name="MenuItemTransparent" Header="Transparent" Click="MenuItemTransparent_OnClick" />
+                        <MenuItem Name="MenuItemTransparent" IsChecked="False" Header="Transparent" Click="MenuItemTransparent_OnClick" />
+                        <MenuItem Name="MenuItemEnableSound" IsChecked="True" Header="Sound effect?" Click="MenuItemEnableSound_OnClick" />
                         <MenuItem Name="MenuItemQuit" Header="Quit" Click="MenuItemQuit_OnClick" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
+            <Image Height="0" Name="FishImage" Source="res/fish.png" Stretch="Uniform"></Image>
         </Grid>
     </Viewbox>
 </Window>

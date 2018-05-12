@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -10,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,9 +23,14 @@ namespace Flatsch
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int ShowWindowTime = 200;
+        private const int ShowWindowTime = 2000;
+        private const int FadeInAnimTime = 100;
         private const int HideWindowTime = 3000;
+
         private Brush _lastBackground;
+        private bool _isSoundEnabled = true;
+        private SoundPlayer _player;
+        private DoubleAnimation _fadeInAnimation;
 
         private readonly Timer _timer = new Timer();
 
@@ -31,6 +38,19 @@ namespace Flatsch
         {
             InitializeComponent();
             SetWindowPosAndSize();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _player = new SoundPlayer("res/fish.wav");
+            _fadeInAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = Height,
+                AutoReverse = false,
+                Duration = new Duration(TimeSpan.FromMilliseconds(FadeInAnimTime)),
+            };
         }
 
         private void SetWindowPosAndSize()
@@ -81,8 +101,19 @@ namespace Flatsch
 
         private void OnShowWindow(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { Opacity = 1f; });
+            Dispatcher.Invoke(() =>
+            {
+                FishImage.BeginAnimation(HeightProperty, _fadeInAnimation);
+                PlaySound();
+                Opacity = 1f;
+            });
             SetHideWindowTimer();
+        }
+
+        private void PlaySound()
+        {
+            if (!_isSoundEnabled) return;
+            _player.Play();
         }
 
         private void MenuItemTransparent_OnClick(object sender, RoutedEventArgs e)
@@ -99,6 +130,13 @@ namespace Flatsch
         private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void MenuItemEnableSound_OnClick(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem) sender;
+            item.IsChecked = !item.IsChecked;
+            _isSoundEnabled = item.IsChecked;
         }
     }
 }
