@@ -75,13 +75,13 @@ namespace Flatsch
 
         private void OnHideWindow(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { Visibility = Visibility.Collapsed; });
+            Dispatcher.Invoke(() => { Opacity = 0f; });
             SetShowWindowTimer();
         }
 
         private void OnShowWindow(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { Visibility = Visibility.Visible; });
+            Dispatcher.Invoke(() => { Opacity = 1f; });
             SetHideWindowTimer();
         }
 
@@ -90,7 +90,7 @@ namespace Flatsch
             var item = (MenuItem) sender;
             if (!item.IsChecked)
             {
-                _lastBackground = item.Background;
+                _lastBackground = Background;
             }
             Dispatcher.Invoke(() => { Background = item.IsChecked ? _lastBackground : Brushes.Transparent; });
             item.IsChecked = !item.IsChecked;
