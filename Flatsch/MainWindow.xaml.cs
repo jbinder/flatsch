@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Flatsch
 {
@@ -27,8 +17,6 @@ namespace Flatsch
         private const int FadeInAnimTime = 100;
         private const int HideWindowTime = 3000;
 
-        private Brush _lastBackground;
-        private bool _isSoundEnabled = true;
         private SoundPlayer _player;
         private DoubleAnimation _fadeInAnimation;
 
@@ -51,6 +39,7 @@ namespace Flatsch
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(FadeInAnimTime)),
             };
+            Background = Settings.Default.IsTransparent ? Brushes.Transparent : Settings.Default.BackgroundColor;
         }
 
         private void SetWindowPosAndSize()
@@ -112,19 +101,21 @@ namespace Flatsch
 
         private void PlaySound()
         {
-            if (!_isSoundEnabled) return;
+            if (!Settings.Default.IsSoundEnabled) return;
             _player.Play();
         }
 
         private void MenuItemTransparent_OnClick(object sender, RoutedEventArgs e)
         {
             var item = (MenuItem) sender;
-            if (!item.IsChecked)
-            {
-                _lastBackground = Background;
-            }
-            Dispatcher.Invoke(() => { Background = item.IsChecked ? _lastBackground : Brushes.Transparent; });
             item.IsChecked = !item.IsChecked;
+            Dispatcher.Invoke(() => { Background = !item.IsChecked ? Settings.Default.BackgroundColor : Brushes.Transparent; });
+            SaveSettings();
+        }
+
+        private static void SaveSettings()
+        {
+            Settings.Default.Save();
         }
 
         private void MenuItemQuit_OnClick(object sender, RoutedEventArgs e)
@@ -136,7 +127,7 @@ namespace Flatsch
         {
             var item = (MenuItem) sender;
             item.IsChecked = !item.IsChecked;
-            _isSoundEnabled = item.IsChecked;
+            SaveSettings();
         }
     }
 }

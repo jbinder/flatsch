@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flatsch"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:properties="clr-namespace:Flatsch"
         mc:Ignorable="d"
         Title="MainWindow" WindowStyle="None" ResizeMode="NoResize"
         Background="White"
@@ -22,8 +23,10 @@
                 ToolTipText="flatsch">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Name="MenuItemTransparent" IsChecked="False" Header="Transparent" Click="MenuItemTransparent_OnClick" />
-                        <MenuItem Name="MenuItemEnableSound" IsChecked="True" Header="Sound effect?" Click="MenuItemEnableSound_OnClick" />
+                        <MenuItem Name="MenuItemTransparent" Header="Transparent" Click="MenuItemTransparent_OnClick"
+                                  IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsTransparent, Mode=TwoWay}" />
+                        <MenuItem Name="MenuItemEnableSound" Header="Sound effect?" Click="MenuItemEnableSound_OnClick"
+                                  IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsSoundEnabled, Mode=TwoWay}" />
                         <MenuItem Name="MenuItemQuit" Header="Quit" Click="MenuItemQuit_OnClick" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
