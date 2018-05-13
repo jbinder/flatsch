@@ -96,7 +96,7 @@ namespace Flatsch
             {
                 FishImage.BeginAnimation(HeightProperty, _fadeInAnimation);
                 PlaySound();
-                Opacity = 1f;
+                Opacity = Settings.Default.Opacity;
             });
             SetHideWindowTimer();
         }
