@@ -14,6 +14,7 @@
         ShowActivated="False"
         Deactivated="MainWindow_OnDeactivated"
         Loaded="MainWindow_OnLoaded"
+        SourceInitialized="MainWindow_OnSourceInitialized"
 >
     <Viewbox StretchDirection="Both" Stretch="None">
         <Grid>

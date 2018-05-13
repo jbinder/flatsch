@@ -3,8 +3,10 @@ using System.Media;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Flatsch.Helper;
 
 namespace Flatsch
 {
@@ -128,6 +130,13 @@ namespace Flatsch
             var item = (MenuItem) sender;
             item.IsChecked = !item.IsChecked;
             SaveSettings();
+        }
+
+        private void MainWindow_OnSourceInitialized(object sender, EventArgs e)
+        {
+            // Allow clicking through the window
+            var hwnd = new WindowInteropHelper(this).Handle;
+            WindowHelper.EnableClickThrough(hwnd);
         }
     }
 }
