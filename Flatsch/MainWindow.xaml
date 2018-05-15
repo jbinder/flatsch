@@ -16,23 +16,26 @@
         Loaded="MainWindow_OnLoaded"
         SourceInitialized="MainWindow_OnSourceInitialized"
 >
-    <Viewbox StretchDirection="Both" Stretch="None">
+    <Viewbox Name="Viewbox" StretchDirection="Both" Stretch="None">
         <Grid>
-            <!--<Label Content="blink!!! 👿" />-->
+            <Label Name="BlinkReminderText" Visibility="Collapsed" Content="blink! 👁" />
             <tb:TaskbarIcon
                 IconSource="/res/icon.ico"
                 ToolTipText="flatsch">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
+                        <MenuItem Name="MenuShowFish" Header="Show fish" Click="MenuShowFish_OnClick"
+                                  IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=ShowFish, Mode=TwoWay}" />
                         <MenuItem Name="MenuItemTransparent" Header="Transparent" Click="MenuItemTransparent_OnClick"
                                   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsTransparent, Mode=TwoWay}" />
-                        <MenuItem Name="MenuItemEnableSound" Header="Sound effect?" Click="MenuItemEnableSound_OnClick"
+                        <MenuItem Name="MenuItemEnableSound" Header="Sound effect" Click="MenuItemEnableSound_OnClick"
                                   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsSoundEnabled, Mode=TwoWay}" />
+                        <Separator/>
                         <MenuItem Name="MenuItemQuit" Header="Quit" Click="MenuItemQuit_OnClick" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
-            <Image Height="0" Name="FishImage" Source="res/fish.png" Stretch="Uniform"></Image>
+            <Image Visibility="Collapsed" Height="0" Name="FishImage" Source="res/fish.png" Stretch="Uniform"></Image>
         </Grid>
     </Viewbox>
 </Window>

@@ -15,7 +15,7 @@ namespace Flatsch
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int ShowWindowTime = 2000;
+        private const int ShowWindowTime = 200;
         private const int FadeInAnimTime = 100;
         private const int HideWindowTime = 3000;
 
@@ -42,6 +42,14 @@ namespace Flatsch
                 Duration = new Duration(TimeSpan.FromMilliseconds(FadeInAnimTime)),
             };
             Background = Settings.Default.IsTransparent ? Brushes.Transparent : Settings.Default.BackgroundColor;
+            UpdateShowFishSetting();
+        }
+
+        private void UpdateShowFishSetting()
+        {
+            FishImage.Visibility = Settings.Default.ShowFish ? Visibility.Visible : Visibility.Collapsed;
+            BlinkReminderText.Visibility = Settings.Default.ShowFish ? Visibility.Collapsed : Visibility.Visible;
+            Viewbox.Stretch = Settings.Default.ShowFish ? Stretch.None : Stretch.Uniform;
         }
 
         private void SetWindowPosAndSize()
@@ -94,11 +102,17 @@ namespace Flatsch
         {
             Dispatcher.Invoke(() =>
             {
-                FishImage.BeginAnimation(HeightProperty, _fadeInAnimation);
+                PlayAnimation();
                 PlaySound();
                 Opacity = Settings.Default.Opacity;
             });
             SetHideWindowTimer();
+        }
+
+        private void PlayAnimation()
+        {
+            if (!Settings.Default.ShowFish) return;
+            FishImage.BeginAnimation(HeightProperty, _fadeInAnimation);
         }
 
         private void PlaySound()
@@ -137,6 +151,14 @@ namespace Flatsch
             // Allow clicking through the window
             var hwnd = new WindowInteropHelper(this).Handle;
             WindowHelper.EnableClickThrough(hwnd);
+        }
+
+        private void MenuShowFish_OnClick(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem) sender;
+            item.IsChecked = !item.IsChecked;
+            SaveSettings();
+            UpdateShowFishSetting();
         }
     }
 }

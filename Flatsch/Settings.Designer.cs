@@ -70,5 +70,17 @@ namespace Flatsch {
                 this["Opacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFish {
+            get {
+                return ((bool)(this["ShowFish"]));
+            }
+            set {
+                this["ShowFish"] = value;
+            }
+        }
     }
 }
