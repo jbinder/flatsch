@@ -15,10 +15,6 @@ namespace Flatsch
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int ShowWindowTime = 200;
-        private const int FadeInAnimTime = 100;
-        private const int HideWindowTime = 3000;
-
         private SoundPlayer _player;
         private DoubleAnimation _fadeInAnimation;
 
@@ -39,7 +35,7 @@ namespace Flatsch
                 From = 0,
                 To = Height,
                 AutoReverse = false,
-                Duration = new Duration(TimeSpan.FromMilliseconds(FadeInAnimTime)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
             };
             Background = Settings.Default.IsTransparent ? Brushes.Transparent : Settings.Default.BackgroundColor;
             UpdateShowFishSetting();
@@ -82,14 +78,14 @@ namespace Flatsch
         {
             _timer.Elapsed -= OnShowWindow;
             _timer.Elapsed += OnHideWindow;
-            _timer.Interval = ShowWindowTime;
+            _timer.Interval = Settings.Default.ShowWindowTime;
         }
 
         private void SetShowWindowTimer()
         {
             _timer.Elapsed -= OnHideWindow;
             _timer.Elapsed += OnShowWindow;
-            _timer.Interval = HideWindowTime;
+            _timer.Interval = Settings.Default.HideWindowTime;
         }
 
         private void OnHideWindow(object sender, ElapsedEventArgs e)

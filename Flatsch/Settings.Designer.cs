@@ -82,5 +82,41 @@ namespace Flatsch {
                 this["ShowFish"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int ShowWindowTime {
+            get {
+                return ((int)(this["ShowWindowTime"]));
+            }
+            set {
+                this["ShowWindowTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int FadeInAnimTime {
+            get {
+                return ((int)(this["FadeInAnimTime"]));
+            }
+            set {
+                this["FadeInAnimTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3000")]
+        public int HideWindowTime {
+            get {
+                return ((int)(this["HideWindowTime"]));
+            }
+            set {
+                this["HideWindowTime"] = value;
+            }
+        }
     }
 }
