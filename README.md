@@ -8,7 +8,7 @@ Friendly reminds you to blink frequently for keeping your eyes healthy.
 Features
 --------
 
-* Throws a fish at your face!
+* Throws a fish or just text at your face!
 * Transparent or on white, so it's impossible to overlook
 * Customize the fish!
 

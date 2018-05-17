@@ -31,6 +31,8 @@
                         <MenuItem Name="MenuItemEnableSound" Header="Sound effect" Click="MenuItemEnableSound_OnClick"
                                   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsSoundEnabled, Mode=TwoWay}" />
                         <Separator/>
+                        <MenuItem Name="MenuItemPause" Header="Pause" Click="MenuItemPause_OnClick" IsChecked="False" />
+                        <Separator/>
                         <MenuItem Name="MenuItemQuit" Header="Quit" Click="MenuItemQuit_OnClick" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>

@@ -15,6 +15,8 @@ namespace Flatsch
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool _isPaused = false;
+        private double _lastOpacity = 0f;
         private SoundPlayer _player;
         private DoubleAnimation _fadeInAnimation;
 
@@ -72,6 +74,19 @@ namespace Flatsch
         {
             SetHideWindowTimer();
             _timer.Enabled = true;
+         }
+
+        private void Start()
+        {
+            Opacity = _lastOpacity;
+            _timer.Enabled = true;
+        }
+
+        private void Stop()
+        {
+            _lastOpacity = Opacity;
+            Opacity = 0f;
+            _timer.Enabled = false;
         }
 
         private void SetHideWindowTimer()
@@ -155,6 +170,21 @@ namespace Flatsch
             item.IsChecked = !item.IsChecked;
             SaveSettings();
             UpdateShowFishSetting();
+        }
+
+        private void MenuItemPause_OnClick(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem) sender;
+            _isPaused = !_isPaused;
+            if (!_isPaused)
+            {
+                Start();
+            }
+            else
+            {
+                Stop();
+            }
+            item.IsChecked = _isPaused;
         }
     }
 }
