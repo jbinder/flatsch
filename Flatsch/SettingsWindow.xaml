@@ -1,0 +1,49 @@
+﻿<Window x:Class="Flatsch.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Flatsch"
+        mc:Ignorable="d"
+        Title="Settings" Height="300" Width="400">
+        <Window.Resources>
+            <local:Settings x:Key="Settings" />
+        </Window.Resources>
+    <Grid DataContext="{StaticResource Settings}" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Transparent"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Background Color"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Sound"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Opacity"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Show Fish"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Show Window Time"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Fade Animation Time"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Hidw Window Time"/>
+        <Label Grid.Row="7" Grid.Column="0" Content=""/>
+        <CheckBox Grid.Column="1" Grid.Row="0" Margin="3" IsChecked="{Binding Path=Default.IsTransparent, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=Default.BackgroundColor, Mode=TwoWay}" />
+        <CheckBox Grid.Column="1" Grid.Row="2" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />
+        <CheckBox Grid.Column="1" Grid.Row="4" Margin="3" IsChecked="{Binding Path=Default.ShowFish, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding Path=Default.ShowWindowTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding Path=Default.FadeInAnimTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Default.HideWindowTime, Mode=TwoWay}" />
+
+        <Button Name="Save" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+    </Grid>
+</Window>

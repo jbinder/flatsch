@@ -24,10 +24,10 @@
                 ToolTipText="flatsch">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
+                        <MenuItem Name="MenuSettings" Header="Settings" Click="MenuSettings_OnClick" />
+                        <Separator/>
                         <MenuItem Name="MenuShowFish" Header="Show fish" Click="MenuShowFish_OnClick"
                                   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=ShowFish, Mode=TwoWay}" />
-                        <MenuItem Name="MenuItemTransparent" Header="Transparent" Click="MenuItemTransparent_OnClick"
-                                  IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsTransparent, Mode=TwoWay}" />
                         <MenuItem Name="MenuItemEnableSound" Header="Sound effect" Click="MenuItemEnableSound_OnClick"
                                   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsSoundEnabled, Mode=TwoWay}" />
                         <Separator/>

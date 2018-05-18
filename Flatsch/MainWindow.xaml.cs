@@ -186,5 +186,10 @@ namespace Flatsch
             }
             item.IsChecked = _isPaused;
         }
+
+        private void MenuSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().ShowDialog();
+        }
     }
 }
