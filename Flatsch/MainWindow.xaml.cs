@@ -32,6 +32,11 @@ namespace Flatsch
         private void Initialize()
         {
             _player = new SoundPlayer("res/fish.wav");
+            UpdateSettings();
+        }
+
+        private void UpdateSettings()
+        {
             _fadeInAnimation = new DoubleAnimation
             {
                 From = 0,
@@ -132,14 +137,6 @@ namespace Flatsch
             _player.Play();
         }
 
-        private void MenuItemTransparent_OnClick(object sender, RoutedEventArgs e)
-        {
-            var item = (MenuItem) sender;
-            item.IsChecked = !item.IsChecked;
-            Dispatcher.Invoke(() => { Background = !item.IsChecked ? Settings.Default.BackgroundColor : Brushes.Transparent; });
-            SaveSettings();
-        }
-
         private static void SaveSettings()
         {
             Settings.Default.Save();
@@ -190,6 +187,7 @@ namespace Flatsch
         private void MenuSettings_OnClick(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().ShowDialog();
+            UpdateSettings();
         }
     }
 }
