@@ -5,7 +5,7 @@
     <Setting Name="IsTransparent" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="BackgroundColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
+    <Setting Name="BackgroundColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFFFFFF</Value>
     </Setting>
     <Setting Name="IsSoundEnabled" Type="System.Boolean" Scope="User">

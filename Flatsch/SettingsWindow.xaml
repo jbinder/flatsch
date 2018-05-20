@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flatsch"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Settings" Height="300" Width="400">
         <Window.Resources>
@@ -36,7 +37,7 @@
         <Label Grid.Row="7" Grid.Column="0" Content="Hidw Window Time"/>
         <Label Grid.Row="7" Grid.Column="0" Content=""/>
         <CheckBox Grid.Column="1" Grid.Row="0" Margin="3" IsChecked="{Binding Path=Default.IsTransparent, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=Default.BackgroundColor, Mode=TwoWay}" />
+        <xctk:ColorPicker Grid.Column="1" Grid.Row="1" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
         <CheckBox Grid.Column="1" Grid.Row="2" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />
         <CheckBox Grid.Column="1" Grid.Row="4" Margin="3" IsChecked="{Binding Path=Default.ShowFish, Mode=TwoWay}" />

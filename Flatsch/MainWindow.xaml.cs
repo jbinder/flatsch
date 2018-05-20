@@ -44,7 +44,11 @@ namespace Flatsch
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
             };
-            Background = Settings.Default.IsTransparent ? Brushes.Transparent : Settings.Default.BackgroundColor;
+            Background = Settings.Default.IsTransparent ? Brushes.Transparent : new SolidColorBrush(Color.FromArgb(
+                Settings.Default.BackgroundColor.A,
+                Settings.Default.BackgroundColor.R,
+                Settings.Default.BackgroundColor.G,
+                Settings.Default.BackgroundColor.B));
             UpdateShowFishSetting();
         }
 

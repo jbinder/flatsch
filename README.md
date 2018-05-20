@@ -35,3 +35,4 @@ Thanks
 * Fish gfx: https://openclipart.org/detail/3675/fish-in-ink
 * Fish sound: https://freesound.org/people/qubodup/sounds/222507/
 * Tray icon lib: https://www.codeproject.com/Articles/36468/WPF-NotifyIcon
+* Color picker: https://github.com/drogoganor/ColorPickerWPF

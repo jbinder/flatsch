@@ -38,9 +38,9 @@ namespace Flatsch {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
-        public global::System.Windows.Media.SolidColorBrush BackgroundColor {
+        public global::System.Windows.Media.Color BackgroundColor {
             get {
-                return ((global::System.Windows.Media.SolidColorBrush)(this["BackgroundColor"]));
+                return ((global::System.Windows.Media.Color)(this["BackgroundColor"]));
             }
             set {
                 this["BackgroundColor"] = value;
