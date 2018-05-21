@@ -2,11 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Flatsch" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="IsTransparent" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="BackgroundColor" Type="System.Windows.Media.Color" Scope="User">
-      <Value Profile="(Default)">#FFFFFFFF</Value>
+      <Value Profile="(Default)">#00FFFFFF</Value>
     </Setting>
     <Setting Name="IsSoundEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

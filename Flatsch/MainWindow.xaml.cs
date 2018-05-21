@@ -44,7 +44,7 @@ namespace Flatsch
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
             };
-            Background = Settings.Default.IsTransparent ? Brushes.Transparent : new SolidColorBrush(Color.FromArgb(
+            Background = new SolidColorBrush(Color.FromArgb(
                 Settings.Default.BackgroundColor.A,
                 Settings.Default.BackgroundColor.R,
                 Settings.Default.BackgroundColor.G,

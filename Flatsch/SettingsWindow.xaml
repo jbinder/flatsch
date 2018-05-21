@@ -36,7 +36,6 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Fade Animation Time"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Hidw Window Time"/>
         <Label Grid.Row="7" Grid.Column="0" Content=""/>
-        <CheckBox Grid.Column="1" Grid.Row="0" Margin="3" IsChecked="{Binding Path=Default.IsTransparent, Mode=TwoWay}" />
         <xctk:ColorPicker Grid.Column="1" Grid.Row="1" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
         <CheckBox Grid.Column="1" Grid.Row="2" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />

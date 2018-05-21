@@ -25,19 +25,7 @@ namespace Flatsch {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IsTransparent {
-            get {
-                return ((bool)(this["IsTransparent"]));
-            }
-            set {
-                this["IsTransparent"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#00FFFFFF")]
         public global::System.Windows.Media.Color BackgroundColor {
             get {
                 return ((global::System.Windows.Media.Color)(this["BackgroundColor"]));
