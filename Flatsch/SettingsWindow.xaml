@@ -21,6 +21,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -43,7 +44,8 @@
         <TextBox Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding Path=Default.ShowWindowTime, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding Path=Default.FadeInAnimTime, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Default.HideWindowTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Default.NotificationText, Mode=TwoWay}" />
 
-        <Button Name="Save" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+        <Button Name="Save" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
     </Grid>
 </Window>

@@ -106,5 +106,17 @@ namespace Flatsch {
                 this["HideWindowTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("blink! 👁")]
+        public string NotificationText {
+            get {
+                return ((string)(this["NotificationText"]));
+            }
+            set {
+                this["NotificationText"] = value;
+            }
+        }
     }
 }
