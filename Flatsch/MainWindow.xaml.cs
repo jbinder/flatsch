@@ -160,9 +160,9 @@ namespace Flatsch
 
         private void MainWindow_OnSourceInitialized(object sender, EventArgs e)
         {
-            // Allow clicking through the window
+            // Allow clicking through the window, hide from program switcher
             var hwnd = new WindowInteropHelper(this).Handle;
-            WindowHelper.EnableClickThrough(hwnd);
+            WindowHelper.PrepareWindow(hwnd);
         }
 
         private void MenuShowFish_OnClick(object sender, RoutedEventArgs e)
