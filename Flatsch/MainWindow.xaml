@@ -18,7 +18,7 @@
 >
     <Viewbox Name="Viewbox" StretchDirection="Both" Stretch="None">
         <Grid>
-            <Label Name="BlinkReminderText" Visibility="Collapsed" Content="{Binding Source={x:Static properties:Settings.Default}, Path=NotificationText}" />
+            <Label Padding="0" Margin="0" Name="BlinkReminderText" Visibility="Collapsed" Content="{Binding Source={x:Static properties:Settings.Default}, Path=NotificationText}" />
             <tb:TaskbarIcon
                 IconSource="/res/icon.ico"
                 ToolTipText="flatsch">
