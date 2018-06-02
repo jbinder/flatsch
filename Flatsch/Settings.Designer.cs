@@ -109,7 +109,7 @@ namespace Flatsch {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("blink! 👁")]
+        [global::System.Configuration.DefaultSettingValueAttribute("👀")]
         public string NotificationText {
             get {
                 return ((string)(this["NotificationText"]));

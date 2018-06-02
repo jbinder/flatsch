@@ -1,7 +1,10 @@
 flatsch
 =======
 
-Friendly reminds you to blink frequently for keeping your eyes healthy.
+Office-Eye-Syndrome, dry/hurting eyes, headache etc., when working on the PC?
+This could be caused by not blinking often enough [1], [2].
+
+Flatsch reminds you to blink frequently which might assist in reducing your pain.
 
 > WARNING: This app may potentially trigger seizures for people with photosensitive epilepsy. Please take care!
 
@@ -11,6 +14,7 @@ Features
 * Throws a fish or just text at your face!
 * Transparent or on white, so it's impossible to overlook
 * Customize the fish!
+* Customizable timings, colors, transparency, ...
 
 Usage
 -----
@@ -36,3 +40,9 @@ Thanks
 * Fish sound: https://freesound.org/people/qubodup/sounds/222507/
 * Tray icon lib: https://www.codeproject.com/Articles/36468/WPF-NotifyIcon
 * Color picker: https://github.com/drogoganor/ColorPickerWPF
+
+References
+----------
+
+* [1] https://en.wikipedia.org/wiki/Dry_eye_syndrome
+* [2] https://www.ncbi.nlm.nih.gov/pubmed/22710496

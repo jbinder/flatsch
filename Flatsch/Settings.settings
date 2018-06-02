@@ -24,7 +24,7 @@
       <Value Profile="(Default)">3000</Value>
     </Setting>
     <Setting Name="NotificationText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">blink! 👁</Value>
+      <Value Profile="(Default)">👀</Value>
     </Setting>
   </Settings>
 </SettingsFile>
