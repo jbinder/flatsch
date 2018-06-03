@@ -190,7 +190,10 @@ namespace Flatsch
 
         private void MenuSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().ShowDialog();
+            var item = (MenuItem) sender;
+            item.IsEnabled = false;
+            new SettingsWindow{Owner = this}.ShowDialog();
+            item.IsEnabled = true;
             UpdateSettings();
         }
     }
