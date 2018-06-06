@@ -26,5 +26,11 @@
     <Setting Name="NotificationText" Type="System.String" Scope="User">
       <Value Profile="(Default)">👀</Value>
     </Setting>
+    <Setting Name="NotificationTextFontSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="NotificationTextMarginTop" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

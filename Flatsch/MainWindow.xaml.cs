@@ -49,14 +49,20 @@ namespace Flatsch
                 Settings.Default.BackgroundColor.R,
                 Settings.Default.BackgroundColor.G,
                 Settings.Default.BackgroundColor.B));
-            UpdateShowFishSetting();
+            UpdateWindowContent();
         }
 
-        private void UpdateShowFishSetting()
+        private void UpdateWindowContent()
         {
             FishImage.Visibility = Settings.Default.ShowFish ? Visibility.Visible : Visibility.Collapsed;
             BlinkReminderText.Visibility = Settings.Default.ShowFish ? Visibility.Collapsed : Visibility.Visible;
-            Viewbox.Stretch = Settings.Default.ShowFish ? Stretch.None : Stretch.Uniform;
+            var customFontSize = Settings.Default.NotificationTextFontSize > 0;
+            Viewbox.Stretch = Settings.Default.ShowFish || customFontSize ? Stretch.None : Stretch.Uniform;
+            if (customFontSize)
+            {
+                BlinkReminderText.Margin = new Thickness(0, Settings.Default.NotificationTextMarginTop, 0, 0);
+                BlinkReminderText.FontSize = Settings.Default.NotificationTextFontSize;
+            }
         }
 
         private void SetWindowPosAndSize()
@@ -170,7 +176,7 @@ namespace Flatsch
             var item = (MenuItem) sender;
             item.IsChecked = !item.IsChecked;
             SaveSettings();
-            UpdateShowFishSetting();
+            UpdateWindowContent();
         }
 
         private void MenuItemPause_OnClick(object sender, RoutedEventArgs e)

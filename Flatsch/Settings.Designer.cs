@@ -118,5 +118,29 @@ namespace Flatsch {
                 this["NotificationText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int NotificationTextFontSize {
+            get {
+                return ((int)(this["NotificationTextFontSize"]));
+            }
+            set {
+                this["NotificationTextFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int NotificationTextMarginTop {
+            get {
+                return ((int)(this["NotificationTextMarginTop"]));
+            }
+            set {
+                this["NotificationTextMarginTop"] = value;
+            }
+        }
     }
 }

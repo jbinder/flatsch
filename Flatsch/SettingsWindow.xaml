@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:Flatsch"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="400">
+        Title="Settings" Height="400" Width="400">
         <Window.Resources>
             <local:Settings x:Key="Settings" />
         </Window.Resources>
     <Grid DataContext="{StaticResource Settings}" VerticalAlignment="Center">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -28,24 +29,27 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Transparent"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Background Color"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Sound"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Opacity"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Show Fish"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Show Window Time"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Fade Animation Time"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Hidw Window Time"/>
-        <Label Grid.Row="7" Grid.Column="0" Content=""/>
-        <xctk:ColorPicker Grid.Column="1" Grid.Row="1" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
-        <CheckBox Grid.Column="1" Grid.Row="2" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />
-        <CheckBox Grid.Column="1" Grid.Row="4" Margin="3" IsChecked="{Binding Path=Default.ShowFish, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding Path=Default.ShowWindowTime, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding Path=Default.FadeInAnimTime, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Default.HideWindowTime, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Default.NotificationText, Mode=TwoWay}" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Background Color" ToolTip="Set the background color of the reminder."/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Sound" ToolTip="Should a sound be played each time the reminder is shown? Customize the sound by replacing the sound file in the 'res' directory."/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Opacity" ToolTip="Set the opacity of the reminder (0 to 1)."/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Show Fish" ToolTip="Select if either a fish or a Text should be shown. Customize the text below, customize the fish by replacing the graphic in the 'res' directory."/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Show Window Time" ToolTip="Set the time in ms that the reminder will be shown."/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Fade Animation Time" ToolTip="Set the fade-in time in ms if 'Show Fish' is selected."/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Hidw Window Time" ToolTip="Set the pause in ms between showing the reminder"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Text" ToolTip="The text is shown if 'Show Fish' is not selected."/>
+        <Label Grid.Row="8" Grid.Column="0" Content="Font Size" ToolTip="Disables automatic scaling of the text if set to a value larger than 0."/>
+        <Label Grid.Row="9" Grid.Column="0" Content="Margin Top" ToolTip="Only applied when 'Font Size' is larger than 0."/>
+        <xctk:ColorPicker Grid.Column="1" Grid.Row="0" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
+        <CheckBox Grid.Column="1" Grid.Row="1" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />
+        <CheckBox Grid.Column="1" Grid.Row="3" Margin="3" IsChecked="{Binding Path=Default.ShowFish, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding Path=Default.ShowWindowTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="5" Margin="3" Text="{Binding Path=Default.FadeInAnimTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="6" Margin="3" Text="{Binding Path=Default.HideWindowTime, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Default.NotificationText, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Default.NotificationTextFontSize, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="9" Margin="3" Text="{Binding Path=Default.NotificationTextMarginTop, Mode=TwoWay}" />
 
-        <Button Name="Save" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+        <Button Name="Save" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
     </Grid>
 </Window>
