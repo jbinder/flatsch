@@ -6,7 +6,7 @@
       <Value Profile="(Default)">#00FFFFFF</Value>
     </Setting>
     <Setting Name="IsSoundEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Opacity" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.5</Value>
