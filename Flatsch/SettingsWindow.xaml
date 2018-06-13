@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -39,6 +40,8 @@
         <Label Grid.Row="7" Grid.Column="0" Content="Text" ToolTip="The text is shown if 'Show Fish' is not selected."/>
         <Label Grid.Row="8" Grid.Column="0" Content="Font Size" ToolTip="Disables automatic scaling of the text if set to a value larger than 0."/>
         <Label Grid.Row="9" Grid.Column="0" Content="Margin Top" ToolTip="Only applied when 'Font Size' is larger than 0."/>
+        <Label Grid.Row="10" Grid.Column="0" Content="Screen" ToolTip="On which screen should the reminder be shown? (-1: primary screen, 0 to [num screens - 1])"/>
+
         <xctk:ColorPicker Grid.Column="1" Grid.Row="0" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
         <CheckBox Grid.Column="1" Grid.Row="1" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding Path=Default.Opacity, Mode=TwoWay}" />
@@ -49,7 +52,8 @@
         <TextBox Grid.Column="1" Grid.Row="7" Margin="3" Text="{Binding Path=Default.NotificationText, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="8" Margin="3" Text="{Binding Path=Default.NotificationTextFontSize, Mode=TwoWay}" />
         <TextBox Grid.Column="1" Grid.Row="9" Margin="3" Text="{Binding Path=Default.NotificationTextMarginTop, Mode=TwoWay}" />
+        <TextBox Grid.Column="1" Grid.Row="10" Margin="3" Text="{Binding Path=Default.Screen, Mode=TwoWay}" />
 
-        <Button Name="Save" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+        <Button Name="Save" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
     </Grid>
 </Window>

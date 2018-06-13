@@ -142,5 +142,17 @@ namespace Flatsch {
                 this["NotificationTextMarginTop"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int Screen {
+            get {
+                return ((int)(this["Screen"]));
+            }
+            set {
+                this["Screen"] = value;
+            }
+        }
     }
 }

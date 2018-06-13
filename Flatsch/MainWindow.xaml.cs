@@ -2,11 +2,14 @@
 using System.Media;
 using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Flatsch.Helper;
+using Application = System.Windows.Application;
+using MenuItem = System.Windows.Controls.MenuItem;
+using Timer = System.Timers.Timer;
 
 namespace Flatsch
 {
@@ -49,6 +52,7 @@ namespace Flatsch
                 Settings.Default.BackgroundColor.R,
                 Settings.Default.BackgroundColor.G,
                 Settings.Default.BackgroundColor.B));
+            SetWindowPosAndSize();
             UpdateWindowContent();
         }
 
@@ -67,10 +71,13 @@ namespace Flatsch
 
         private void SetWindowPosAndSize()
         {
-            Width = SystemParameters.WorkArea.Width;
-            Height = SystemParameters.WorkArea.Height;
-            Top = 0f;
-            Left = 0f;
+            var screen = (Settings.Default.Screen >= 0 && Settings.Default.Screen < Screen.AllScreens.Length)
+                ? Screen.AllScreens[Settings.Default.Screen]
+                : Screen.PrimaryScreen;
+            Width = screen.WorkingArea.Width;
+            Height = screen.WorkingArea.Height;
+            Top = screen.WorkingArea.Top;
+            Left = screen.WorkingArea.Left;
         }
 
         /// <summary>
