@@ -35,6 +35,7 @@ namespace Flatsch
         private void Initialize()
         {
             _player = new SoundPlayer("res/fish.wav");
+            Opacity = Settings.Default.Opacity;
             UpdateSettings();
         }
 
