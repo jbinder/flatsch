@@ -29,7 +29,7 @@ Requirements
 
 To build the app:
 
-* Visual Studio 2018
+* Visual Studio 2017
   * .NET desktop development workload
 
 Thanks

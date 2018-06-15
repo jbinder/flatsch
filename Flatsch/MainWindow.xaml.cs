@@ -22,6 +22,7 @@ namespace Flatsch
         private double _lastOpacity = 0f;
         private SoundPlayer _player;
         private DoubleAnimation _fadeInAnimation;
+        private const int WM_DEVICECHANGE = 0x219;
 
         private readonly Timer _timer = new Timer();
 
@@ -177,6 +178,19 @@ namespace Flatsch
             // Allow clicking through the window, hide from program switcher
             var hwnd = new WindowInteropHelper(this).Handle;
             WindowHelper.PrepareWindow(hwnd);
+
+            // Detect screen changes and move window to an active screen
+            var source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_DEVICECHANGE)
+            {
+                SetWindowPosAndSize();
+            }
+            return IntPtr.Zero;
         }
 
         private void MenuShowFish_OnClick(object sender, RoutedEventArgs e)
