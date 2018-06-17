@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Media;
 using System.Timers;
 using System.Windows;
@@ -8,7 +9,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Flatsch.Helper;
 using Application = System.Windows.Application;
+using Color = System.Windows.Media.Color;
 using MenuItem = System.Windows.Controls.MenuItem;
+using Rectangle = System.Drawing.Rectangle;
 using Timer = System.Timers.Timer;
 
 namespace Flatsch
@@ -73,13 +76,23 @@ namespace Flatsch
 
         private void SetWindowPosAndSize()
         {
-            var screen = (Settings.Default.Screen >= 0 && Settings.Default.Screen < Screen.AllScreens.Length)
-                ? Screen.AllScreens[Settings.Default.Screen]
-                : Screen.PrimaryScreen;
-            Width = screen.WorkingArea.Width;
-            Height = screen.WorkingArea.Height;
-            Top = screen.WorkingArea.Top;
-            Left = screen.WorkingArea.Left;
+            if (!Settings.Default.SpanAcrossAllScreens) {
+                var screen = (Settings.Default.Screen >= 0 && Settings.Default.Screen < Screen.AllScreens.Length)
+                    ? Screen.AllScreens[Settings.Default.Screen]
+                    : Screen.PrimaryScreen;
+                Width = screen.WorkingArea.Width;
+                Height = screen.WorkingArea.Height;
+                Top = screen.WorkingArea.Top;
+                Left = screen.WorkingArea.Left;
+            }
+            else
+            {
+                var area = Screen.AllScreens.Aggregate(new Rectangle(), (x, y) => Rectangle.Union(x, y.WorkingArea));
+                Top = area.Top;
+                Left = area.Left;
+                Width = area.Width;
+                Height = area.Height;
+            }
         }
 
         /// <summary>

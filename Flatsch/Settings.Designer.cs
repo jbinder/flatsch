@@ -154,5 +154,17 @@ namespace Flatsch {
                 this["Screen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SpanAcrossAllScreens {
+            get {
+                return ((bool)(this["SpanAcrossAllScreens"]));
+            }
+            set {
+                this["SpanAcrossAllScreens"] = value;
+            }
+        }
     }
 }

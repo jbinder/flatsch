@@ -12,6 +12,7 @@ Features
 --------
 
 * Throws a fish or just text at your face!
+* Multi-monitor support
 * Transparent or on white, so it's impossible to overlook
 * Customize the fish!
 * Customizable timings, colors, transparency, ...
