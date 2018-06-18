@@ -26,6 +26,7 @@ namespace Flatsch
         private SoundPlayer _player;
         private DoubleAnimation _fadeInAnimation;
         private const int WM_DEVICECHANGE = 0x219;
+        private const int WM_DISPLAYCHANGE = 0x7e;
 
         private readonly Timer _timer = new Timer();
 
@@ -199,7 +200,7 @@ namespace Flatsch
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == WM_DEVICECHANGE)
+            if (msg == WM_DEVICECHANGE || msg == WM_DISPLAYCHANGE)
             {
                 SetWindowPosAndSize();
             }
