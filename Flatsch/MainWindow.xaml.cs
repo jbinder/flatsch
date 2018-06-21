@@ -24,7 +24,8 @@ namespace Flatsch
         private bool _isPaused = false;
         private double _lastOpacity = 0f;
         private SoundPlayer _player;
-        private DoubleAnimation _fadeInAnimation;
+        private DoubleAnimation _fishAnimation;
+        private DoubleAnimation _textAnimation;
         private const int WM_DEVICECHANGE = 0x219;
         private const int WM_DISPLAYCHANGE = 0x7e;
 
@@ -46,10 +47,17 @@ namespace Flatsch
 
         private void UpdateSettings()
         {
-            _fadeInAnimation = new DoubleAnimation
+            _fishAnimation = new DoubleAnimation
             {
                 From = 0,
                 To = Height,
+                AutoReverse = false,
+                Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
+            };
+            _textAnimation = new DoubleAnimation
+            {
+                From = 0f,
+                To = 1f,
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
             };
@@ -160,8 +168,14 @@ namespace Flatsch
 
         private void PlayAnimation()
         {
-            if (!Settings.Default.ShowFish) return;
-            FishImage.BeginAnimation(HeightProperty, _fadeInAnimation);
+            if (!Settings.Default.ShowFish)
+            {
+                BlinkReminderText.BeginAnimation(OpacityProperty, _textAnimation);
+            }
+            else
+            {
+                FishImage.BeginAnimation(HeightProperty, _fishAnimation);
+            }
         }
 
         private void PlaySound()

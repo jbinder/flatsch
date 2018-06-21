@@ -36,7 +36,7 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Opacity" ToolTip="Set the opacity of the reminder (0 to 1)."/>
         <Label Grid.Row="3" Grid.Column="0" Content="Show Fish" ToolTip="Select if either a fish or a Text should be shown. Customize the text below, customize the fish by replacing the graphic in the 'res' directory."/>
         <Label Grid.Row="4" Grid.Column="0" Content="Show Window Time" ToolTip="Set the time in ms that the reminder will be shown."/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Fade Animation Time" ToolTip="Set the fade-in time in ms if 'Show Fish' is selected."/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Fade In Animation Time" ToolTip="Set the fade-in time in ms."/>
         <Label Grid.Row="6" Grid.Column="0" Content="Hidw Window Time" ToolTip="Set the pause in ms between showing the reminder"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Text" ToolTip="The text is shown if 'Show Fish' is not selected."/>
         <Label Grid.Row="8" Grid.Column="0" Content="Font Size" ToolTip="Disables automatic scaling of the text if set to a value larger than 0."/>
