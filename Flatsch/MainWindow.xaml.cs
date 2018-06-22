@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Media;
 using System.Timers;
@@ -42,7 +43,13 @@ namespace Flatsch
         {
             _player = new SoundPlayer("res/fish.wav");
             Opacity = Settings.Default.Opacity;
+            Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
+        }
+
+        private void PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // UpdateSettings();
         }
 
         private void UpdateSettings()

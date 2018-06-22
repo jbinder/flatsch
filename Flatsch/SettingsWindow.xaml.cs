@@ -18,5 +18,16 @@ namespace Flatsch
             Settings.Default.Save();
             Close();
         }
+
+        private void Cancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.Reload();
+            Close();
+        }
+
+        private void Reset_OnClick(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.Reset();
+        }
     }
 }

@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -58,5 +59,7 @@
         <CheckBox Grid.Column="1" Grid.Row="11" Margin="3" IsChecked="{Binding Path=Default.SpanAcrossAllScreens, Mode=TwoWay}" />
 
         <Button Name="Save" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+        <Button Name="Reset" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Reset" Click="Reset_OnClick"/>
+        <Button Name="Cancel" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Cancel" Click="Cancel_OnClick"/>
     </Grid>
 </Window>
