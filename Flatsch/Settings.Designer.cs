@@ -166,5 +166,17 @@ namespace Flatsch {
                 this["SpanAcrossAllScreens"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int FadeOutAnimTime {
+            get {
+                return ((int)(this["FadeOutAnimTime"]));
+            }
+            set {
+                this["FadeOutAnimTime"] = value;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Media;
@@ -25,8 +26,7 @@ namespace Flatsch
         private bool _isPaused = false;
         private double _lastOpacity = 0f;
         private SoundPlayer _player;
-        private DoubleAnimation _fishAnimation;
-        private DoubleAnimation _textAnimation;
+        private Dictionary<string, DoubleAnimation> _animations = new Dictionary<string, DoubleAnimation>();
         private const int WM_DEVICECHANGE = 0x219;
         private const int WM_DISPLAYCHANGE = 0x7e;
 
@@ -54,19 +54,33 @@ namespace Flatsch
 
         private void UpdateSettings()
         {
-            _fishAnimation = new DoubleAnimation
+            _animations["fish_in"] = new DoubleAnimation
             {
                 From = 0,
                 To = Height,
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
             };
-            _textAnimation = new DoubleAnimation
+            _animations["text_in"] = new DoubleAnimation
             {
                 From = 0f,
                 To = 1f,
                 AutoReverse = false,
                 Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeInAnimTime)),
+            };
+            _animations["fish_out"] = new DoubleAnimation
+            {
+                From = Height,
+                To = 0,
+                AutoReverse = false,
+                Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeOutAnimTime))
+            };
+            _animations["text_out"] = new DoubleAnimation
+            {
+                From = 1f,
+                To = 0f,
+                AutoReverse = false,
+                Duration = new Duration(TimeSpan.FromMilliseconds(Settings.Default.FadeOutAnimTime)),
             };
             Background = new SolidColorBrush(Color.FromArgb(
                 Settings.Default.BackgroundColor.A,
@@ -144,44 +158,78 @@ namespace Flatsch
 
         private void SetHideWindowTimer()
         {
-            _timer.Elapsed -= OnShowWindow;
+            RemoveEventHandlersFromTimer();
             _timer.Elapsed += OnHideWindow;
             _timer.Interval = Settings.Default.ShowWindowTime;
         }
 
         private void SetShowWindowTimer()
         {
-            _timer.Elapsed -= OnHideWindow;
+            RemoveEventHandlersFromTimer();
             _timer.Elapsed += OnShowWindow;
             _timer.Interval = Settings.Default.HideWindowTime;
         }
 
+        private void SetShowWindowAnimDoneTimer()
+        {
+            RemoveEventHandlersFromTimer();
+            _timer.Elapsed += OnShowWindowAnimDone;
+            _timer.Interval = Settings.Default.FadeInAnimTime;
+        }
+
+        private void SetHideWindowAnimDoneTimer()
+        {
+            RemoveEventHandlersFromTimer();
+            _timer.Elapsed += OnHideWindowAnimDone;
+            _timer.Interval = Settings.Default.FadeOutAnimTime;
+        }
+
+        private void RemoveEventHandlersFromTimer()
+        {
+            _timer.Elapsed -= OnHideWindow;
+            _timer.Elapsed -= OnHideWindowAnimDone;
+            _timer.Elapsed -= OnShowWindow;
+            _timer.Elapsed -= OnShowWindowAnimDone;
+        }
+
         private void OnHideWindow(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { Opacity = 0f; });
-            SetShowWindowTimer();
+            Dispatcher.Invoke(() => { PlayAnimation(false); });
+            SetHideWindowAnimDoneTimer();
         }
 
         private void OnShowWindow(object sender, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                PlayAnimation();
+                PlayAnimation(true);
                 PlaySound();
                 Opacity = Settings.Default.Opacity;
             });
+            SetShowWindowAnimDoneTimer();
+        }
+
+        private void OnShowWindowAnimDone(object sender, ElapsedEventArgs e)
+        {
             SetHideWindowTimer();
         }
 
-        private void PlayAnimation()
+        private void OnHideWindowAnimDone(object sender, ElapsedEventArgs e)
         {
+            Dispatcher.Invoke(() => { Opacity = 0f; });
+            SetShowWindowTimer();
+        }
+
+        private void PlayAnimation(bool playInAnim)
+        {
+            var animType = playInAnim ? "in" : "out";
             if (!Settings.Default.ShowFish)
             {
-                BlinkReminderText.BeginAnimation(OpacityProperty, _textAnimation);
+                BlinkReminderText.BeginAnimation(OpacityProperty, _animations[$"text_{animType}"]);
             }
             else
             {
-                FishImage.BeginAnimation(HeightProperty, _fishAnimation);
+                FishImage.BeginAnimation(HeightProperty, _animations[$"fish_{animType}"]);
             }
         }
 
