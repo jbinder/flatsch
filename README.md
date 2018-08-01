@@ -8,6 +8,8 @@ Flatsch reminds you to blink frequently which might assist in reducing your pain
 
 > WARNING: This app may potentially trigger seizures for people with photosensitive epilepsy. Please take care!
 
+[Download](https://github.com/jbinder/flatsch/releases/latest)
+
 Features
 --------
 
