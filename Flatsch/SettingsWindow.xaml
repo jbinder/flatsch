@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Flatsch"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
         mc:Ignorable="d"
-        Title="Settings" Height="400" Width="400">
+        Title="Settings" Height="450" Width="400">
         <Window.Resources>
             <local:Settings x:Key="Settings" />
         </Window.Resources>
-    <Grid DataContext="{StaticResource Settings}" VerticalAlignment="Center">
+    <Grid DataContext="{StaticResource Settings}" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -60,8 +63,8 @@
         <TextBox Grid.Column="1" Grid.Row="11" Margin="3" Text="{Binding Path=Default.Screen, Mode=TwoWay}" />
         <CheckBox Grid.Column="1" Grid.Row="12" Margin="3" IsChecked="{Binding Path=Default.SpanAcrossAllScreens, Mode=TwoWay}" />
 
-        <Button Name="Save" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
-        <Button Name="Reset" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Reset" Click="Reset_OnClick"/>
-        <Button Name="Cancel" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Cancel" Click="Cancel_OnClick"/>
+        <Button Name="Save" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
+        <Button Name="Reset" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Reset" Click="Reset_OnClick"/>
+        <Button Name="Cancel" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Cancel" Click="Cancel_OnClick"/>
     </Grid>
 </Window>
