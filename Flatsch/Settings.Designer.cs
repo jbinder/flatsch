@@ -12,7 +12,7 @@ namespace Flatsch {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -176,6 +176,35 @@ namespace Flatsch {
             }
             set {
                 this["FadeOutAnimTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Constant Blink Reminder</string>
+  <string>The 20-20-20 Rule</string>
+  <string>The 20-20-20 Rule (Dual Monitor, HD)</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection Profiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Profiles"]));
+            }
+            set {
+                this["Profiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedProfile {
+            get {
+                return ((string)(this["SelectedProfile"]));
+            }
+            set {
+                this["SelectedProfile"] = value;
             }
         }
     }

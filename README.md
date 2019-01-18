@@ -18,6 +18,9 @@ Features
 * Transparent or on white, so it's impossible to overlook
 * Customize the fish!
 * Customizable timings, colors, transparency, ...
+* Has profiles for
+  * regular blinking: flashes the screen every 5 seconds
+  * 20-20-20 rule [3]: fades in an overlay every 20 minutes, encouraging you to look 20 seconds at something which is 20 feet away
 
 Usage
 -----
@@ -49,3 +52,4 @@ References
 
 * [1] https://en.wikipedia.org/wiki/Dry_eye_syndrome
 * [2] https://www.ncbi.nlm.nih.gov/pubmed/22710496
+* [3] https://www.aoa.org/patients-and-public/caring-for-your-vision/protecting-your-vision/computer-vision-syndrome

@@ -8,12 +8,13 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="400">
+        Title="Settings" Height="500" Width="400">
         <Window.Resources>
             <local:Settings x:Key="Settings" />
         </Window.Resources>
     <Grid DataContext="{StaticResource Settings}" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -48,6 +49,7 @@
         <Label Grid.Row="10" Grid.Column="0" Content="Margin Top" ToolTip="Only applied when 'Font Size' is larger than 0."/>
         <Label Grid.Row="11" Grid.Column="0" Content="Screen" ToolTip="On which screen should the reminder be shown? (-1: primary screen, 0 to [num screens - 1])"/>
         <Label Grid.Row="12" Grid.Column="0" Content="Span across all screens" ToolTip="Stretches the reminder over all screens."/>
+        <Label Grid.Row="13" Grid.Column="0" Content="Profile" ToolTip="Apply default settings for a specific application scenario."/>
 
         <xctk:ColorPicker Grid.Column="1" Grid.Row="0" Margin="3" Name="BackgroundColor" SelectedColor="{Binding Path=Default.BackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></xctk:ColorPicker>
         <CheckBox Grid.Column="1" Grid.Row="1" Margin="3" IsChecked="{Binding Path=Default.IsSoundEnabled, Mode=TwoWay}" />
@@ -63,8 +65,17 @@
         <TextBox Grid.Column="1" Grid.Row="11" Margin="3" Text="{Binding Path=Default.Screen, Mode=TwoWay}" />
         <CheckBox Grid.Column="1" Grid.Row="12" Margin="3" IsChecked="{Binding Path=Default.SpanAcrossAllScreens, Mode=TwoWay}" />
 
-        <Button Name="Save" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Save" Click="Save_OnClick"/>
-        <Button Name="Reset" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Reset" Click="Reset_OnClick"/>
-        <Button Name="Cancel" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Right" MinWidth="80" Margin="3" Content="Cancel" Click="Cancel_OnClick"/>
+        <StackPanel Grid.Row ="13" Grid.Column="1" Orientation = "Horizontal">
+            <ComboBox HorizontalAlignment="Left" Width="135" Margin="3" ItemsSource="{Binding Path=Default.Profiles}" SelectedValue="{Binding Path=Default.SelectedProfile}"></ComboBox>
+            <Button Name="ApplyProfile" HorizontalAlignment="Right" Width="50" Margin="3" Content="Apply" Click="ApplyProfile_OnClick"/>
+        </StackPanel>
+
+        <Label Grid.Column="1" Grid.Row="14" Content="" />
+
+        <Button Name="Reset" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Right" MinWidth="60" Margin="3" Content="Reset" Click="Reset_OnClick"/>
+        <StackPanel Grid.Row ="15" Grid.Column="1" Orientation = "Horizontal">
+            <Button Name="Cancel" HorizontalAlignment="Left" MinWidth="60" Margin="3" Content="Cancel" Click="Cancel_OnClick"/>
+            <Button Name="Save" HorizontalAlignment="Right" MinWidth="60" Margin="3" Content="Save" Click="Save_OnClick"/>
+        </StackPanel>
     </Grid>
 </Window>
