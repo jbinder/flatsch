@@ -181,23 +181,6 @@ namespace Flatsch {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Constant Blink Reminder</string>
-  <string>The 20-20-20 Rule</string>
-  <string>The 20-20-20 Rule (Dual Monitor, HD)</string>
-</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection Profiles {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Profiles"]));
-            }
-            set {
-                this["Profiles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SelectedProfile {
             get {
@@ -205,6 +188,19 @@ namespace Flatsch {
             }
             set {
                 this["SelectedProfile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+        public global::System.Collections.Specialized.StringCollection Profiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Profiles"]));
+            }
+            set {
+                this["Profiles"] = value;
             }
         }
     }

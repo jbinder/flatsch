@@ -66,7 +66,7 @@
         <CheckBox Grid.Column="1" Grid.Row="12" Margin="3" IsChecked="{Binding Path=Default.SpanAcrossAllScreens, Mode=TwoWay}" />
 
         <StackPanel Grid.Row ="13" Grid.Column="1" Orientation = "Horizontal">
-            <ComboBox HorizontalAlignment="Left" Width="135" Margin="3" ItemsSource="{Binding Path=Default.Profiles}" SelectedValue="{Binding Path=Default.SelectedProfile}"></ComboBox>
+            <ComboBox Name="Profiles"  HorizontalAlignment="Left" Width="135" Margin="3"></ComboBox>
             <Button Name="ApplyProfile" HorizontalAlignment="Right" Width="50" Margin="3" Content="Apply" Click="ApplyProfile_OnClick"/>
         </StackPanel>
 

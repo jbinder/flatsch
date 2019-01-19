@@ -4,7 +4,7 @@ flatsch
 Office-Eye-Syndrome, dry/hurting eyes, headache etc., when working on the PC?
 This could be caused by not blinking often enough [1], [2].
 
-Flatsch reminds you to blink frequently which might assist in reducing your pain.
+Flatsch reminds you to blink frequently or follow the 20-20-20 rule, which might assist in reducing your pain.
 
 > WARNING: This app may potentially trigger seizures for people with photosensitive epilepsy. Please take care!
 

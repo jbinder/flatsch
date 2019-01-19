@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Flatsch
@@ -8,9 +10,17 @@ namespace Flatsch
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        private readonly Dictionary<string, Action> _defaultProfiles = new Dictionary<string, Action>
+        {
+            {"Constant Blink Reminder", SetConstantBlinkReminderDefaults},
+            {"The 20-20-20 Rule", Set202020RuleDefaults},
+            {"The 20-20-20 Rule (Dual Monitor, HD)", Set2020RuleDualMonitorHdDefaults}
+        };
+
         public SettingsWindow()
         {
             InitializeComponent();
+            Profiles.ItemsSource = _defaultProfiles.Keys;
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
@@ -32,27 +42,21 @@ namespace Flatsch
 
         private void ApplyProfile_OnClick(object sender, RoutedEventArgs e)
         {
-            switch (Settings.Default.SelectedProfile)
+            if (_defaultProfiles.ContainsKey(Profiles.Text))
             {
-                case "Constant Blink Reminder":
-                    SetConstantBlinkReminderDefaults();
-                    break;
-                case "The 20-20-20 Rule":
-                    Set202020RuleDefaults();
-                    break;
-                case "The 20-20-20 Rule (Dual Monitor, HD)":
-                    Set202020RuleDefaults();
-                    Settings.Default.NotificationText = "👀   👀";
-                    Settings.Default.SpanAcrossAllScreens = true;
-                    Settings.Default.NotificationTextFontSize = 1000;
-                    Settings.Default.NotificationTextMarginTop = -250;
-                    break;
-                default:
-                    // nothing to be done
-                    break;
+                _defaultProfiles[Profiles.Text]();
             }
 
             Settings.Default.SelectedProfile = "";
+        }
+
+        private static void Set2020RuleDualMonitorHdDefaults()
+        {
+            Set202020RuleDefaults();
+            Settings.Default.NotificationText = "👀   👀";
+            Settings.Default.SpanAcrossAllScreens = true;
+            Settings.Default.NotificationTextFontSize = 1000;
+            Settings.Default.NotificationTextMarginTop = -250;
         }
 
         private static void Set202020RuleDefaults()
