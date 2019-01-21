@@ -15,7 +15,7 @@ namespace Flatsch
     // ReSharper disable once RedundantExtendsListEntry
     public partial class SettingsWindow : Window
     {
-        private const string TextApply = "Apply";
+        private const string TextLoad = "Load";
         private const string TextAdd = "Add";
         private readonly Dictionary<string, Action> _defaultProfiles = new Dictionary<string, Action>
         {
@@ -151,8 +151,8 @@ namespace Flatsch
             Settings.Default.Opacity = 0.5f;
             Settings.Default.ShowFish = false;
             Settings.Default.ShowWindowTime = 50;
-            Settings.Default.FadeInAnimTime = 10;
-            Settings.Default.FadeOutAnimTime = 10;
+            Settings.Default.FadeInAnimTime = 50;
+            Settings.Default.FadeOutAnimTime = 50;
             Settings.Default.HideWindowTime = 5000;
             Settings.Default.NotificationText = "";
             Settings.Default.SpanAcrossAllScreens = true;
@@ -184,7 +184,7 @@ namespace Flatsch
             var text = Profiles.Text;
             if (_defaultProfiles.ContainsKey(text) || _customProfiles.ContainsKey(text))
             {
-                ApplyProfile.Content = TextApply;
+                ApplyProfile.Content = TextLoad;
             }
             else
             {

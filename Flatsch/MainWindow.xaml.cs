@@ -21,16 +21,21 @@ namespace Flatsch
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainWindow : Window
     {
-        private bool _isPaused = false;
-        private double _lastOpacity = 0f;
+        private bool _isPaused;
+        private bool _isFadingOut = true;
         private SoundPlayer _player;
-        private Dictionary<string, DoubleAnimation> _animations = new Dictionary<string, DoubleAnimation>();
+        private readonly Dictionary<string, DoubleAnimation> _animations = new Dictionary<string, DoubleAnimation>();
+        // ReSharper disable once InconsistentNaming
         private const int WM_DEVICECHANGE = 0x219;
+        // ReSharper disable once InconsistentNaming
         private const int WM_DISPLAYCHANGE = 0x7e;
+        private const int BackgroundAnimInterval = 20;
 
         private readonly Timer _timer = new Timer();
+        private readonly Timer _backgroundAnimtimer = new Timer();
 
         public MainWindow()
         {
@@ -45,6 +50,8 @@ namespace Flatsch
             Opacity = Settings.Default.Opacity;
             Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
+            _backgroundAnimtimer.Interval = BackgroundAnimInterval;
+            _backgroundAnimtimer.Elapsed += OnBackgroundAnimtimer;
         }
 
         private void PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -145,14 +152,11 @@ namespace Flatsch
 
         private void Start()
         {
-            Opacity = _lastOpacity;
             _timer.Enabled = true;
         }
 
         private void Stop()
         {
-            _lastOpacity = Opacity;
-            Opacity = 0f;
             _timer.Enabled = false;
         }
 
@@ -204,7 +208,6 @@ namespace Flatsch
             {
                 PlayAnimation(true);
                 PlaySound();
-                Opacity = Settings.Default.Opacity;
             });
             SetShowWindowAnimDoneTimer();
         }
@@ -216,7 +219,6 @@ namespace Flatsch
 
         private void OnHideWindowAnimDone(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { Opacity = 0f; });
             SetShowWindowTimer();
         }
 
@@ -231,6 +233,30 @@ namespace Flatsch
             {
                 FishImage.BeginAnimation(HeightProperty, _animations[$"fish_{animType}"]);
             }
+            _isFadingOut = !playInAnim;
+            if (playInAnim)
+            {
+                Opacity = 0f;
+                _backgroundAnimtimer.Enabled = true;
+            }
+            else
+            {
+                Opacity = Settings.Default.Opacity;
+                _backgroundAnimtimer.Enabled = true;
+            }
+
+        }
+
+        private void OnBackgroundAnimtimer(object sender, ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Opacity += Settings.Default.Opacity / ((float)Settings.Default.FadeOutAnimTime / BackgroundAnimInterval) * (_isFadingOut ? -1 : 1);
+                if ((Opacity <= 0 && _isFadingOut) || (Opacity >= Settings.Default.Opacity && !_isFadingOut))
+                {
+                    _backgroundAnimtimer.Enabled = false;
+                }
+            });
         }
 
         private void PlaySound()
@@ -264,7 +290,7 @@ namespace Flatsch
 
             // Detect screen changes and move window to an active screen
             var source = PresentationSource.FromVisual(this) as HwndSource;
-            source.AddHook(WndProc);
+            source?.AddHook(WndProc);
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
