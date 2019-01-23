@@ -148,7 +148,7 @@ namespace Flatsch
             Settings.Default.Reset();
             Settings.Default.BackgroundColor = Colors.Black;
             Settings.Default.IsSoundEnabled = false;
-            Settings.Default.Opacity = 0.5f;
+            Settings.Default.Opacity = 0.25f;
             Settings.Default.ShowFish = false;
             Settings.Default.ShowWindowTime = 50;
             Settings.Default.FadeInAnimTime = 50;
