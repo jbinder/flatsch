@@ -40,7 +40,7 @@ namespace Flatsch
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.Default.Reload();
-            UpdateCustomProfiles();
+            InitSettingProfiles();
             Close();
         }
 
