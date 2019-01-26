@@ -54,6 +54,11 @@ namespace Flatsch
         {
             if ((string)ApplyProfile.Content == TextAdd)
             {
+                if (string.IsNullOrWhiteSpace(Profiles.Text))
+                {
+                    MessageBox.Show("Please specify a profile name!", "Profile name missing", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
                 var profile = GetProfileFromSettings();
                 var serialized = XmlSerializerHelper.Serialize(profile);
                 Settings.Default.Profiles.Add(serialized);
