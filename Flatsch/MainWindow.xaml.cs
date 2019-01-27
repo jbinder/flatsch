@@ -275,13 +275,6 @@ namespace Flatsch
             Application.Current.Shutdown();
         }
 
-        private void MenuItemEnableSound_OnClick(object sender, RoutedEventArgs e)
-        {
-            var item = (MenuItem) sender;
-            item.IsChecked = !item.IsChecked;
-            SaveSettings();
-        }
-
         private void MainWindow_OnSourceInitialized(object sender, EventArgs e)
         {
             // Allow clicking through the window, hide from program switcher
@@ -302,12 +295,14 @@ namespace Flatsch
             return IntPtr.Zero;
         }
 
-        private void MenuShowFish_OnClick(object sender, RoutedEventArgs e)
+        private void MenuItemPreview_OnClick(object sender, RoutedEventArgs e)
         {
-            var item = (MenuItem) sender;
-            item.IsChecked = !item.IsChecked;
-            SaveSettings();
-            UpdateWindowContent();
+            Dispatcher.Invoke(() =>
+            {
+                PlayAnimation(true);
+                PlaySound();
+            });
+            SetShowWindowAnimDoneTimer();
         }
 
         private void MenuItemPause_OnClick(object sender, RoutedEventArgs e)
