@@ -24,11 +24,14 @@ namespace Flatsch
             {"The 20-20-20 Rule (Dual Monitor, HD)", Set2020RuleDualMonitorHdDefaults}
         };
         private readonly Dictionary<string, Profile> _customProfiles = new Dictionary<string, Profile>();
+        private Profile _currentProfile;
 
         public SettingsWindow()
         {
             InitializeComponent();
             UpdateCustomProfiles();
+            // the settings window is created each time the window is shown, so get the current profile here
+            _currentProfile = GetProfileFromSettings();
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
@@ -39,7 +42,7 @@ namespace Flatsch
 
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
-            Settings.Default.Reload();
+            ApplyCustomProfile(_currentProfile);
             InitSettingProfiles();
             Close();
         }
