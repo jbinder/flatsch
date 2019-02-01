@@ -48,9 +48,10 @@ namespace Flatsch
         {
             _player = new SoundPlayer("res/fish.wav");
             Opacity = Settings.Default.Opacity;
-            Properties.Settings.Default.PropertyChanged += PropertyChanged;
+            // Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
             _backgroundAnimtimer.Interval = BackgroundAnimInterval;
+            _backgroundAnimtimer.Elapsed -= OnBackgroundAnimtimer;
             _backgroundAnimtimer.Elapsed += OnBackgroundAnimtimer;
         }
 
@@ -146,18 +147,20 @@ namespace Flatsch
         /// </summary>
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            SetHideWindowTimer();
-            _timer.Enabled = true;
-         }
+            Start();
+        }
 
         private void Start()
         {
+            Opacity = 0f;
+            SetShowWindowTimer();
             _timer.Enabled = true;
         }
 
         private void Stop()
         {
             _timer.Enabled = false;
+            Opacity = 0f;
         }
 
         private void SetHideWindowTimer()
@@ -219,7 +222,15 @@ namespace Flatsch
 
         private void OnHideWindowAnimDone(object sender, ElapsedEventArgs e)
         {
-            SetShowWindowTimer();
+            if (_isPaused)
+            {
+                // when paused, stop after a preview
+                Stop();
+            }
+            else
+            {
+                SetShowWindowTimer();
+            }
         }
 
         private void PlayAnimation(bool playInAnim)
@@ -297,12 +308,8 @@ namespace Flatsch
 
         private void MenuItemPreview_OnClick(object sender, RoutedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                PlayAnimation(true);
-                PlaySound();
-            });
-            SetShowWindowAnimDoneTimer();
+            Start();
+            _timer.Interval = 1; // immediately show
         }
 
         private void MenuItemPause_OnClick(object sender, RoutedEventArgs e)
