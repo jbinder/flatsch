@@ -36,6 +36,7 @@ namespace Flatsch
 
         private readonly Timer _timer = new Timer();
         private readonly Timer _backgroundAnimtimer = new Timer();
+        private IntPtr hwnd;
 
         public MainWindow()
         {
@@ -211,6 +212,8 @@ namespace Flatsch
             {
                 PlayAnimation(true);
                 PlaySound();
+                // in some situations the window gets pushed back behind other windows, so move set as topmost each loop
+                WindowHelper.PrepareWindow(hwnd);
             });
             SetShowWindowAnimDoneTimer();
         }
@@ -289,7 +292,7 @@ namespace Flatsch
         private void MainWindow_OnSourceInitialized(object sender, EventArgs e)
         {
             // Allow clicking through the window, hide from program switcher
-            var hwnd = new WindowInteropHelper(this).Handle;
+            hwnd = new WindowInteropHelper(this).Handle;
             WindowHelper.PrepareWindow(hwnd);
 
             // Detect screen changes and move window to an active screen
