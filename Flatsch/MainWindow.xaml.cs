@@ -334,9 +334,17 @@ namespace Flatsch
         {
             var item = (MenuItem) sender;
             item.IsEnabled = false;
+            if (!_isPaused)
+            {
+                Stop();
+            }
             new SettingsWindow{Owner = this}.ShowDialog();
             item.IsEnabled = true;
             UpdateSettings();
+            if (!_isPaused)
+            {
+                Start();
+            }
         }
     }
 }
