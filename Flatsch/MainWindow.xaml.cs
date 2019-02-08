@@ -52,8 +52,8 @@ namespace Flatsch
             // Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
             _backgroundAnimtimer.Interval = BackgroundAnimInterval;
-            _backgroundAnimtimer.Elapsed -= OnBackgroundAnimtimer;
-            _backgroundAnimtimer.Elapsed += OnBackgroundAnimtimer;
+            _backgroundAnimtimer.Elapsed -= OnBackgroundAnimTimer;
+            _backgroundAnimtimer.Elapsed += OnBackgroundAnimTimer;
         }
 
         private void PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -153,15 +153,23 @@ namespace Flatsch
 
         private void Start()
         {
-            Opacity = 0f;
-            SetShowWindowTimer();
-            _timer.Enabled = true;
+            Dispatcher.Invoke(() =>
+            {
+                Opacity = 0f;
+                SetShowWindowTimer();
+                _timer.Enabled = true;
+            });
         }
 
         private void Stop()
         {
-            _timer.Enabled = false;
-            Opacity = 0f;
+            Dispatcher.Invoke(() =>
+            {
+                Opacity = 0f;
+                _timer.Enabled = false;
+                _backgroundAnimtimer.Enabled = false;
+                _backgroundAnimtimer.Interval = BackgroundAnimInterval;
+            });
         }
 
         private void SetHideWindowTimer()
@@ -261,7 +269,7 @@ namespace Flatsch
 
         }
 
-        private void OnBackgroundAnimtimer(object sender, ElapsedEventArgs e)
+        private void OnBackgroundAnimTimer(object sender, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
