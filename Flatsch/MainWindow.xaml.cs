@@ -35,7 +35,7 @@ namespace Flatsch
         private const int BackgroundAnimInterval = 20;
 
         private readonly Timer _timer = new Timer();
-        private readonly Timer _backgroundAnimtimer = new Timer();
+        private readonly Timer _backgroundAnimTimer = new Timer();
         private IntPtr hwnd;
 
         public MainWindow()
@@ -51,9 +51,9 @@ namespace Flatsch
             Opacity = Settings.Default.Opacity;
             // Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
-            _backgroundAnimtimer.Interval = BackgroundAnimInterval;
-            _backgroundAnimtimer.Elapsed -= OnBackgroundAnimTimer;
-            _backgroundAnimtimer.Elapsed += OnBackgroundAnimTimer;
+            _backgroundAnimTimer.Interval = BackgroundAnimInterval;
+            _backgroundAnimTimer.Elapsed -= OnBackgroundAnimTimer;
+            _backgroundAnimTimer.Elapsed += OnBackgroundAnimTimer;
         }
 
         private void PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -167,8 +167,8 @@ namespace Flatsch
             {
                 Opacity = 0f;
                 _timer.Enabled = false;
-                _backgroundAnimtimer.Enabled = false;
-                _backgroundAnimtimer.Interval = BackgroundAnimInterval;
+                _backgroundAnimTimer.Enabled = false;
+                _backgroundAnimTimer.Interval = BackgroundAnimInterval;
             });
         }
 
@@ -259,12 +259,12 @@ namespace Flatsch
             if (playInAnim)
             {
                 Opacity = 0f;
-                _backgroundAnimtimer.Enabled = true;
+                _backgroundAnimTimer.Enabled = true;
             }
             else
             {
                 Opacity = Settings.Default.Opacity;
-                _backgroundAnimtimer.Enabled = true;
+                _backgroundAnimTimer.Enabled = true;
             }
 
         }
@@ -276,7 +276,7 @@ namespace Flatsch
                 Opacity += Settings.Default.Opacity / ((float)Settings.Default.FadeOutAnimTime / BackgroundAnimInterval) * (_isFadingOut ? -1 : 1);
                 if ((Opacity <= 0 && _isFadingOut) || (Opacity >= Settings.Default.Opacity && !_isFadingOut))
                 {
-                    _backgroundAnimtimer.Enabled = false;
+                    _backgroundAnimTimer.Enabled = false;
                 }
             });
         }
