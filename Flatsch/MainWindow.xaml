@@ -21,7 +21,8 @@
             <Label Padding="0" Name="BlinkReminderText" Visibility="Collapsed" Content="{Binding Source={x:Static properties:Settings.Default}, Path=NotificationText}" />
             <tb:TaskbarIcon
                 IconSource="/res/icon.ico"
-                ToolTipText="flatsch">
+                ToolTipText="flatsch"
+                TrayLeftMouseUp="TaskbarIcon_OnTrayLeftMouseUp">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="MenuSettings" Header="Settings" Click="MenuSettings_OnClick" />

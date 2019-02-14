@@ -319,6 +319,11 @@ namespace Flatsch
 
         private void MenuItemPreview_OnClick(object sender, RoutedEventArgs e)
         {
+            StartPreview();
+        }
+
+        private void StartPreview()
+        {
             Start();
             _timer.Interval = 1; // immediately show
         }
@@ -353,6 +358,11 @@ namespace Flatsch
             {
                 Start();
             }
+        }
+
+        private void TaskbarIcon_OnTrayLeftMouseUp(object sender, RoutedEventArgs e)
+        {
+            StartPreview();
         }
     }
 }
