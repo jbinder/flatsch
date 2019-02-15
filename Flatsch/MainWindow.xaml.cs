@@ -37,6 +37,7 @@ namespace Flatsch
         private readonly Timer _timer = new Timer();
         private readonly Timer _backgroundAnimTimer = new Timer();
         private IntPtr hwnd;
+        private DateTime _backgroundAnimStartTime;
 
         public MainWindow()
         {
@@ -168,7 +169,6 @@ namespace Flatsch
                 Opacity = 0f;
                 _timer.Enabled = false;
                 _backgroundAnimTimer.Enabled = false;
-                _backgroundAnimTimer.Interval = BackgroundAnimInterval;
             });
         }
 
@@ -259,11 +259,13 @@ namespace Flatsch
             if (playInAnim)
             {
                 Opacity = 0f;
+                _backgroundAnimStartTime = DateTime.UtcNow;
                 _backgroundAnimTimer.Enabled = true;
             }
             else
             {
                 Opacity = Settings.Default.Opacity;
+                _backgroundAnimStartTime = DateTime.UtcNow;
                 _backgroundAnimTimer.Enabled = true;
             }
 
@@ -273,7 +275,13 @@ namespace Flatsch
         {
             Dispatcher.Invoke(() =>
             {
-                Opacity += Settings.Default.Opacity / ((float)Settings.Default.FadeOutAnimTime / BackgroundAnimInterval) * (_isFadingOut ? -1 : 1);
+                var elapsedTime = (DateTime.UtcNow - _backgroundAnimStartTime).TotalMilliseconds;
+                var currentAnimPosition = (float) elapsedTime / Settings.Default.FadeOutAnimTime;
+                if (currentAnimPosition > 1f)
+                {
+                    _backgroundAnimTimer.Enabled = false;
+                }
+                Opacity = Settings.Default.Opacity * (_isFadingOut ? 1 - currentAnimPosition : currentAnimPosition);
                 if ((Opacity <= 0 && _isFadingOut) || (Opacity >= Settings.Default.Opacity && !_isFadingOut))
                 {
                     _backgroundAnimTimer.Enabled = false;
