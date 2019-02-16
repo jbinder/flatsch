@@ -158,7 +158,7 @@ namespace Flatsch
             {
                 Opacity = 0f;
                 SetShowWindowTimer();
-                _timer.Enabled = true;
+                _timer.Start();
             });
         }
 
@@ -167,41 +167,46 @@ namespace Flatsch
             Dispatcher.Invoke(() =>
             {
                 Opacity = 0f;
-                _timer.Enabled = false;
-                _backgroundAnimTimer.Enabled = false;
+                _timer.Stop();
+                _backgroundAnimTimer.Stop();
             });
         }
 
         private void SetHideWindowTimer()
         {
-            RemoveEventHandlersFromTimer();
+            ResetTimer();
             _timer.Elapsed += OnHideWindow;
             _timer.Interval = Settings.Default.ShowWindowTime;
+            _timer.Start();
         }
 
         private void SetShowWindowTimer()
         {
-            RemoveEventHandlersFromTimer();
+            ResetTimer();
             _timer.Elapsed += OnShowWindow;
             _timer.Interval = Settings.Default.HideWindowTime;
+            _timer.Start();
         }
 
         private void SetShowWindowAnimDoneTimer()
         {
-            RemoveEventHandlersFromTimer();
+            ResetTimer();
             _timer.Elapsed += OnShowWindowAnimDone;
             _timer.Interval = Settings.Default.FadeInAnimTime;
+            _timer.Start();
         }
 
         private void SetHideWindowAnimDoneTimer()
         {
-            RemoveEventHandlersFromTimer();
+            ResetTimer();
             _timer.Elapsed += OnHideWindowAnimDone;
             _timer.Interval = Settings.Default.FadeOutAnimTime;
+            _timer.Start();
         }
 
-        private void RemoveEventHandlersFromTimer()
+        private void ResetTimer()
         {
+            _timer.Stop();
             _timer.Elapsed -= OnHideWindow;
             _timer.Elapsed -= OnHideWindowAnimDone;
             _timer.Elapsed -= OnShowWindow;
@@ -210,8 +215,11 @@ namespace Flatsch
 
         private void OnHideWindow(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => { PlayAnimation(false); });
-            SetHideWindowAnimDoneTimer();
+            Dispatcher.Invoke(() =>
+            {
+                PlayAnimation(false);
+                SetHideWindowAnimDoneTimer();
+            });
         }
 
         private void OnShowWindow(object sender, ElapsedEventArgs e)
@@ -222,8 +230,8 @@ namespace Flatsch
                 PlaySound();
                 // in some situations the window gets pushed back behind other windows, so move set as topmost each loop
                 WindowHelper.PrepareWindow(hwnd);
+                SetShowWindowAnimDoneTimer();
             });
-            SetShowWindowAnimDoneTimer();
         }
 
         private void OnShowWindowAnimDone(object sender, ElapsedEventArgs e)
@@ -260,13 +268,13 @@ namespace Flatsch
             {
                 Opacity = 0f;
                 _backgroundAnimStartTime = DateTime.UtcNow;
-                _backgroundAnimTimer.Enabled = true;
+                _backgroundAnimTimer.Start();
             }
             else
             {
                 Opacity = Settings.Default.Opacity;
                 _backgroundAnimStartTime = DateTime.UtcNow;
-                _backgroundAnimTimer.Enabled = true;
+                _backgroundAnimTimer.Start();
             }
 
         }
@@ -279,12 +287,12 @@ namespace Flatsch
                 var currentAnimPosition = (float) elapsedTime / Settings.Default.FadeOutAnimTime;
                 if (currentAnimPosition > 1f)
                 {
-                    _backgroundAnimTimer.Enabled = false;
+                    _backgroundAnimTimer.Stop();
                 }
                 Opacity = Settings.Default.Opacity * (_isFadingOut ? 1 - currentAnimPosition : currentAnimPosition);
                 if ((Opacity <= 0 && _isFadingOut) || (Opacity >= Settings.Default.Opacity && !_isFadingOut))
                 {
-                    _backgroundAnimTimer.Enabled = false;
+                    _backgroundAnimTimer.Stop();
                 }
             });
         }
