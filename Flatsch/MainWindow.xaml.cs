@@ -284,7 +284,7 @@ namespace Flatsch
             Dispatcher.Invoke(() =>
             {
                 var elapsedTime = (DateTime.UtcNow - _backgroundAnimStartTime).TotalMilliseconds;
-                var currentAnimPosition = (float) elapsedTime / Settings.Default.FadeOutAnimTime;
+                var currentAnimPosition = (float) elapsedTime / (_isFadingOut ? Settings.Default.FadeOutAnimTime : Settings.Default.FadeInAnimTime);
                 if (currentAnimPosition > 1f)
                 {
                     _backgroundAnimTimer.Stop();
