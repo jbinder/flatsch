@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,25 +33,37 @@ namespace Flatsch
             UpdateCustomProfiles();
             // the settings window is created each time the window is shown, so get the current profile here
             _currentProfile = GetProfileFromSettings();
+            Closing += HandleOnClosing;
+        }
+
+        private void HandleOnClosing(object sender, CancelEventArgs e)
+        {
+            RevertSettings();
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.Default.Save();
+            _currentProfile = GetProfileFromSettings();
             Close();
         }
 
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
         {
+            Close();
+        }
+
+        private void RevertSettings()
+        {
             ApplyCustomProfile(_currentProfile);
             InitSettingProfiles();
-            Close();
         }
 
         private void Reset_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.Default.Reset();
             InitSettingProfiles();
+            _currentProfile = GetProfileFromSettings();
         }
 
         private void ApplyProfile_OnClick(object sender, RoutedEventArgs e)
