@@ -26,6 +26,7 @@ namespace Flatsch
         };
         private readonly Dictionary<string, Profile> _customProfiles = new Dictionary<string, Profile>();
         private Profile _currentProfile;
+        private bool _hasChanges;
 
         public SettingsWindow()
         {
@@ -34,11 +35,26 @@ namespace Flatsch
             // the settings window is created each time the window is shown, so get the current profile here
             _currentProfile = GetProfileFromSettings();
             Closing += HandleOnClosing;
+            Settings.Default.PropertyChanged += DefaultOnPropertyChanged;
         }
 
         private void HandleOnClosing(object sender, CancelEventArgs e)
         {
+            if (_hasChanges)
+            {
+                var result = MessageBox.Show("There are unsaved changes, really close?", "Warning", MessageBoxButton.YesNo);
+                if (result != MessageBoxResult.Yes)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
             RevertSettings();
+        }
+
+        private void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _hasChanges = true;
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
@@ -72,7 +88,7 @@ namespace Flatsch
             {
                 if (string.IsNullOrWhiteSpace(Profiles.Text))
                 {
-                    MessageBox.Show("Please specify a profile name!", "Profile name missing", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Please specify a profile name!", "Warning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
                 var profile = GetProfileFromSettings();
