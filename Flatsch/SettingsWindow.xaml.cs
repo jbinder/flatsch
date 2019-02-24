@@ -18,6 +18,7 @@ namespace Flatsch
     {
         private const string TextLoad = "Load";
         private const string TextAdd = "Add";
+        private const string TextModify = "Modify";
         private readonly Dictionary<string, Action> _defaultProfiles = new Dictionary<string, Action>
         {
             {"Constant Blink Reminder", SetConstantBlinkReminderDefaults},
@@ -27,6 +28,7 @@ namespace Flatsch
         private readonly Dictionary<string, Profile> _customProfiles = new Dictionary<string, Profile>();
         private Profile _currentProfile;
         private bool _hasChanges;
+        private string _lastLoadedProfile;
 
         public SettingsWindow()
         {
@@ -35,7 +37,18 @@ namespace Flatsch
             // the settings window is created each time the window is shown, so get the current profile here
             _currentProfile = GetProfileFromSettings();
             Closing += HandleOnClosing;
+            EnableOnPropertyChangedListener();
+            _lastLoadedProfile = Settings.Default.Profile;
+        }
+
+        private void EnableOnPropertyChangedListener()
+        {
             Settings.Default.PropertyChanged += DefaultOnPropertyChanged;
+        }
+
+        private void DisableOnPropertyChangedListener()
+        {
+            Settings.Default.PropertyChanged -= DefaultOnPropertyChanged;
         }
 
         private void HandleOnClosing(object sender, CancelEventArgs e)
@@ -49,16 +62,27 @@ namespace Flatsch
                     return;
                 }
             }
+            DisableOnPropertyChangedListener();
             RevertSettings();
         }
 
         private void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _hasChanges = true;
+            if (_defaultProfiles.Keys.Contains(Profiles.Text))
+            {
+                Profiles.SelectedValue = string.Empty;
+                _lastLoadedProfile = string.Empty;
+                UpdateProfileButtonContent();
+            }
+            else if (string.IsNullOrWhiteSpace(Profiles.Text) && _lastLoadedProfile == Profiles.Text))
+            {
+                ApplyProfile.Content = TextModify;
+            }
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
+            Settings.Default.Profile = _lastLoadedProfile; // revert unloaded profile selection
             Settings.Default.Save();
             _currentProfile = GetProfileFromSettings();
             Close();
@@ -84,36 +108,74 @@ namespace Flatsch
 
         private void ApplyProfile_OnClick(object sender, RoutedEventArgs e)
         {
-            if ((string)ApplyProfile.Content == TextAdd)
+            DisableOnPropertyChangedListener();
+            var action = (string)ApplyProfile.Content;
+            if (action == TextAdd)
             {
                 if (string.IsNullOrWhiteSpace(Profiles.Text))
                 {
                     MessageBox.Show("Please specify a profile name!", "Warning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
-                var profile = GetProfileFromSettings();
-                var serialized = XmlSerializerHelper.Serialize(profile);
-                Settings.Default.Profiles.Add(serialized);
-
+                AddCurrentProfileToSettings();
+                UpdateCustomProfiles();
+                _lastLoadedProfile = Profiles.Text;
+            }
+            else if (action == TextModify)
+            {
+                var existingProfileXml = "";
+                foreach (var profileXml in Settings.Default.Profiles)
+                {
+                    var profile = XmlSerializerHelper.Deserialize<Profile>(profileXml);
+                    if (profile.Name == Profiles.Text)
+                    {
+                        existingProfileXml = profileXml;
+                    }
+                }
+                Settings.Default.Profiles.Remove(existingProfileXml);
+                AddCurrentProfileToSettings();
                 UpdateCustomProfiles();
             }
             else
             {
+                var profile = Profiles.Text;
+                var hasBeenLoaded = false;
+
                 if (_defaultProfiles.ContainsKey(Profiles.Text))
                 {
                     _defaultProfiles[Profiles.Text]();
                     InitSettingProfiles();
+                    hasBeenLoaded = true;
                 }
 
                 if (_customProfiles.ContainsKey(Profiles.Text))
                 {
                     ApplyCustomProfile(_customProfiles[Profiles.Text]);
+                    hasBeenLoaded = true;
+                }
+
+                if (hasBeenLoaded)
+                {
+                    _lastLoadedProfile = profile;
+                    Settings.Default.Profile = profile;
                 }
             }
+            EnableOnPropertyChangedListener();
+        }
+
+        private void AddCurrentProfileToSettings()
+        {
+            var profile = GetProfileFromSettings();
+            var serialized = XmlSerializerHelper.Serialize(profile);
+            Settings.Default.Profiles.Add(serialized);
         }
 
         private void Profiles_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (Profiles.Text == string.Empty)
+            {
+                return;
+            }
             UpdateProfileButtonContent();
         }
 
@@ -200,10 +262,11 @@ namespace Flatsch
             foreach (var profileXml in Settings.Default.Profiles)
             {
                 var profile = XmlSerializerHelper.Deserialize<Profile>(profileXml);
-                if (!_customProfiles.ContainsKey(profile.Name))
+                if (_customProfiles.ContainsKey(profile.Name))
                 {
-                    _customProfiles.Add(profile.Name, profile);
+                    _customProfiles.Remove(profile.Name);
                 }
+                _customProfiles.Add(profile.Name, profile);
             }
 
             Profiles.ItemsSource = _defaultProfiles.Keys.Concat(_customProfiles.Keys);

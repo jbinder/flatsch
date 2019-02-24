@@ -52,7 +52,7 @@
         <Label Grid.Row="13" Grid.Column="0" Content="Span across all screens" ToolTip="Stretches the reminder over all screens."/>
 
         <StackPanel Grid.Row ="0" Grid.Column="1" Orientation = "Horizontal">
-            <ComboBox Name="Profiles"  HorizontalAlignment="Left" Width="135" Margin="3" IsEditable="True" TextBoxBase.TextChanged="Profiles_OnTextChanged"></ComboBox>
+            <ComboBox Name="Profiles"  HorizontalAlignment="Left" Width="135" Margin="3" IsEditable="True" Text="{Binding Path=Default.Profile, Mode=OneWay}" TextBoxBase.TextChanged="Profiles_OnTextChanged"></ComboBox>
             <Button Name="ApplyProfile" HorizontalAlignment="Right" Width="50" Margin="3" Content="Apply" Click="ApplyProfile_OnClick"/>
         </StackPanel>
 
