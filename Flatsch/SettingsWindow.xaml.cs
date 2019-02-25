@@ -28,6 +28,7 @@ namespace Flatsch
         private readonly Dictionary<string, Profile> _customProfiles = new Dictionary<string, Profile>();
         private Profile _currentProfile;
         private bool _hasChanges;
+        private bool _profileHasChanges;
         private string _lastLoadedProfile;
 
         public SettingsWindow()
@@ -74,16 +75,20 @@ namespace Flatsch
                 _lastLoadedProfile = string.Empty;
                 UpdateProfileButtonContent();
             }
-            else if (string.IsNullOrWhiteSpace(Profiles.Text) && _lastLoadedProfile == Profiles.Text))
+            else if (!string.IsNullOrWhiteSpace(Profiles.Text) && _lastLoadedProfile == Profiles.Text)
             {
                 ApplyProfile.Content = TextModify;
             }
+            _hasChanges = true;
+            _profileHasChanges = true;
         }
 
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
-            Settings.Default.Profile = _lastLoadedProfile; // revert unloaded profile selection
+            DisableOnPropertyChangedListener();
+            Settings.Default.Profile = _profileHasChanges ? string.Empty : _lastLoadedProfile; // revert unloaded profile selection
             Settings.Default.Save();
+            _hasChanges = false;
             _currentProfile = GetProfileFromSettings();
             Close();
         }
@@ -133,6 +138,8 @@ namespace Flatsch
                     }
                 }
                 Settings.Default.Profiles.Remove(existingProfileXml);
+                _lastLoadedProfile = Profiles.Text;
+                _profileHasChanges = false;
                 AddCurrentProfileToSettings();
                 UpdateCustomProfiles();
             }
