@@ -69,6 +69,14 @@ namespace Flatsch
 
         private void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            var newPropertyTypeInfo = Settings.Default.GetType().GetProperty(e.PropertyName);
+            var newPropertyValue = newPropertyTypeInfo.GetValue(Settings.Default, null);
+            var oldPropertyTypeInfo = _currentProfile.GetType().GetProperty(e.PropertyName);
+            var oldPropertyValue = oldPropertyTypeInfo.GetValue(_currentProfile, null);
+            if (newPropertyValue == oldPropertyValue)
+            {
+                return;
+            }
             if (_defaultProfiles.Keys.Contains(Profiles.Text))
             {
                 Profiles.SelectedValue = string.Empty;
