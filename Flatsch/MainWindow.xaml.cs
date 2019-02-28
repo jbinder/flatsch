@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Media;
+using System.Reflection;
 using System.Timers;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using Flatsch.Helper;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
@@ -38,6 +40,8 @@ namespace Flatsch
         private readonly Timer _backgroundAnimTimer = new Timer();
         private IntPtr hwnd;
         private DateTime _backgroundAnimStartTime;
+        private ImageSource defaultIcon;
+        private ImageSource pausedIcon;
 
         public MainWindow()
         {
@@ -55,6 +59,9 @@ namespace Flatsch
             _backgroundAnimTimer.Interval = BackgroundAnimInterval;
             _backgroundAnimTimer.Elapsed -= OnBackgroundAnimTimer;
             _backgroundAnimTimer.Elapsed += OnBackgroundAnimTimer;
+
+            pausedIcon = new BitmapImage(new Uri(@"pack://application:,,,/" + Assembly.GetExecutingAssembly().GetName().Name + ";component/" + "res/icon_paused.ico", UriKind.Absolute));
+            defaultIcon = Icon.IconSource;
         }
 
         private void PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -351,10 +358,12 @@ namespace Flatsch
             if (!_isPaused)
             {
                 Start();
+                Icon.IconSource = defaultIcon;
             }
             else
             {
                 Stop();
+                Icon.IconSource = pausedIcon;
             }
             item.IsChecked = _isPaused;
         }

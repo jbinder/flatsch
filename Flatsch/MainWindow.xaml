@@ -21,6 +21,7 @@
         <Grid>
             <Label Padding="0" Name="BlinkReminderText" Visibility="Collapsed" Content="{Binding Source={x:Static properties:Settings.Default}, Path=NotificationText}" />
             <tb:TaskbarIcon
+                Name="Icon"
                 IconSource="/res/icon.ico"
                 ToolTipText="flatsch"
                 TrayLeftMouseUp="TaskbarIcon_OnTrayLeftMouseUp">
