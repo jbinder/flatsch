@@ -69,12 +69,12 @@ namespace Flatsch
 
         private void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var newPropertyTypeInfo = Settings.Default.GetType().GetProperty(e.PropertyName);
-            var newPropertyValue = newPropertyTypeInfo.GetValue(Settings.Default, null);
-            var oldPropertyTypeInfo = _currentProfile.GetType().GetProperty(e.PropertyName);
-            var oldPropertyValue = oldPropertyTypeInfo.GetValue(_currentProfile, null);
-            if (newPropertyValue == oldPropertyValue)
+            var newProfile = GetProfileFromSettings();
+            if (XmlSerializerHelper.Serialize(newProfile) == XmlSerializerHelper.Serialize(_currentProfile))
             {
+                _hasChanges = false;
+                _profileHasChanges = false;
+                UpdateProfileButtonContent();
                 return;
             }
             if (_defaultProfiles.Keys.Contains(Profiles.Text))
