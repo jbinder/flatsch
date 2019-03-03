@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Flatsch.Helper;
 using Flatsch.Models;
@@ -136,16 +137,7 @@ namespace Flatsch
             }
             else if (action == TextModify)
             {
-                var existingProfileXml = "";
-                foreach (var profileXml in Settings.Default.Profiles)
-                {
-                    var profile = XmlSerializerHelper.Deserialize<Profile>(profileXml);
-                    if (profile.Name == Profiles.Text)
-                    {
-                        existingProfileXml = profileXml;
-                    }
-                }
-                Settings.Default.Profiles.Remove(existingProfileXml);
+                RemoveSelectedProfileFromSettings();
                 _lastLoadedProfile = Profiles.Text;
                 _profileHasChanges = false;
                 AddCurrentProfileToSettings();
@@ -176,6 +168,22 @@ namespace Flatsch
                 }
             }
             EnableOnPropertyChangedListener();
+        }
+
+        private void RemoveSelectedProfileFromSettings()
+        {
+            var existingProfileXml = "";
+
+            foreach (var profileXml in Settings.Default.Profiles)
+            {
+                var profile = XmlSerializerHelper.Deserialize<Profile>(profileXml);
+                if (profile.Name == Profiles.Text)
+                {
+                    existingProfileXml = profileXml;
+                }
+            }
+
+            Settings.Default.Profiles.Remove(existingProfileXml);
         }
 
         private void AddCurrentProfileToSettings()
@@ -297,7 +305,7 @@ namespace Flatsch
         private void UpdateProfileButtonContent()
         {
             var text = Profiles.Text;
-            if (_defaultProfiles.ContainsKey(text) || _customProfiles.ContainsKey(text))
+            if (!string.IsNullOrWhiteSpace(text) && (_defaultProfiles.ContainsKey(text) || _customProfiles.ContainsKey(text)))
             {
                 ApplyProfile.Content = TextLoad;
             }
@@ -305,6 +313,49 @@ namespace Flatsch
             {
                 ApplyProfile.Content = TextAdd;
             }
+        }
+
+        private void Profiles_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            var isShiftKeyDown = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+
+            if (isShiftKeyDown && e.Key == Key.Delete)
+            {
+                if (!DeleteProfile())
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private bool DeleteProfile()
+        {
+            if (string.IsNullOrWhiteSpace(Profiles.Text))
+            {
+                return false;
+            }
+
+            if (_defaultProfiles.ContainsKey(Profiles.Text))
+            {
+                MessageBox.Show("Default profiles can not be deleted!", "Warning", MessageBoxButton.OK);
+                return false;
+            }
+
+            var result = MessageBox.Show($"Do you really want to delete the profile '{Profiles.Text}'", "Warning", MessageBoxButton.YesNo);
+            if (result != MessageBoxResult.Yes)
+            {
+                return false;
+            }
+
+            if (Profiles.Text == _lastLoadedProfile)
+            {
+                _lastLoadedProfile = null;
+            }
+
+            RemoveSelectedProfileFromSettings();
+            _customProfiles.Remove(Profiles.Text);
+            UpdateCustomProfiles();
+            return true;
         }
     }
 }
