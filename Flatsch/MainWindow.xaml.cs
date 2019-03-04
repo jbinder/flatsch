@@ -62,6 +62,8 @@ namespace Flatsch
 
             pausedIcon = new BitmapImage(new Uri(@"pack://application:,,,/" + Assembly.GetExecutingAssembly().GetName().Name + ";component/" + "res/icon_paused.ico", UriKind.Absolute));
             defaultIcon = Icon.IconSource;
+
+            UpdateWindowState();
         }
 
         private void PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -106,6 +108,7 @@ namespace Flatsch
                 Settings.Default.BackgroundColor.B));
             SetWindowPosAndSize();
             UpdateWindowContent();
+            UpdateWindowState();
         }
 
         private void UpdateWindowContent()
@@ -388,6 +391,21 @@ namespace Flatsch
         private void TaskbarIcon_OnTrayLeftMouseUp(object sender, RoutedEventArgs e)
         {
             StartPreview();
+        }
+ 
+        private void UpdateWindowState()
+        {
+            if (!Settings.Default.SpanAcrossAllScreens)
+            {
+                // cover the taskbar, only works for the main screen
+                WindowState = WindowState.Maximized;
+                ShowActivated = true;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                ShowActivated = false;
+            }
         }
     }
 }
