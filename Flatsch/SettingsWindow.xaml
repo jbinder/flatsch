@@ -36,7 +36,7 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Profile" ToolTip="Apply default settings for a specific application scenario."/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Profile" ToolTip="Apply default settings for a specific application scenario. Use Shift+Del to delete the selected profile."/>
         <Label Grid.Row="1" Grid.Column="0" Content="Background Color" ToolTip="Set the background color of the reminder."/>
         <Label Grid.Row="2" Grid.Column="0" Content="Sound" ToolTip="Should a sound be played each time the reminder is shown? Customize the sound by replacing the sound file in the 'res' directory."/>
         <Label Grid.Row="3" Grid.Column="0" Content="Opacity" ToolTip="Set the opacity of the reminder (0 to 1)."/>

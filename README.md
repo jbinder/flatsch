@@ -8,7 +8,13 @@ Flatsch reminds you to blink frequently or follow the 20-20-20 rule, which might
 
 > WARNING: This app may potentially trigger seizures for people with photosensitive epilepsy. Please take care!
 
-[Download](https://github.com/jbinder/flatsch/releases/latest)
+Download
+--------
+
+You can compile flatsch yourself or get it from one of the following sources:
+
+[Github](https://github.com/jbinder/flatsch/releases/latest) / 
+[Softpedia](https://www.softpedia.com/get/Others/Miscellaneous/Flatsch.shtml)
 
 Features
 --------
@@ -21,6 +27,7 @@ Features
 * Has profiles for
   * regular blinking: flashes the screen every 5 seconds
   * 20-20-20 rule [3]: fades in an overlay every 20 minutes, encouraging you to look 20 seconds at something which is 20 feet away
+* Create your own profiles
 
 Usage
 -----
@@ -37,6 +44,31 @@ To build the app:
 
 * Visual Studio 2017
   * .NET desktop development workload
+
+Changelog
+---------
+
+### [0.4]
+
+- Add default profiles: 20-20-20 rule, regular blinking
+- Support adding/modifying/removing of custom profiles
+- Animation improvements
+- Visual improvements
+
+### [0.3]
+
+- Add Multi-monitor support
+- Animation improvements
+
+### [0.2]
+
+- Add settings dialog for customizing blink reminder style and timings
+- Allow the app to be paused
+- Visual improvements
+
+### [0.1]
+
+- Initial release, basic blink reminder functionality
 
 Thanks
 ------
