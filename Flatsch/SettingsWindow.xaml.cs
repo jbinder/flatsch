@@ -134,6 +134,7 @@ namespace Flatsch
                 AddCurrentProfileToSettings();
                 UpdateCustomProfiles();
                 _lastLoadedProfile = Profiles.Text;
+                _profileHasChanges = false;
             }
             else if (action == TextModify)
             {
