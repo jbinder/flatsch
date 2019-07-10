@@ -36,7 +36,7 @@
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
-            <Image Visibility="Collapsed" Height="0" Name="FishImage" Source="res/fish.png" Stretch="Uniform"></Image>
+            <Image Visibility="Collapsed" Height="0" Name="FishImage" Source="" Stretch="Uniform"></Image>
         </Grid>
     </Viewbox>
 </Window>

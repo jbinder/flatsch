@@ -52,7 +52,7 @@ namespace Flatsch
 
         private void Initialize()
         {
-            _player = new SoundPlayer("res/fish.wav");
+            InitMediaResources();
             Opacity = Settings.Default.Opacity;
             // Properties.Settings.Default.PropertyChanged += PropertyChanged;
             UpdateSettings();
@@ -380,12 +380,21 @@ namespace Flatsch
                 Stop();
             }
             new SettingsWindow{Owner = this}.ShowDialog();
+            InitMediaResources();
             item.IsEnabled = true;
             UpdateSettings();
             if (!_isPaused)
             {
                 Start();
             }
+        }
+
+        private void InitMediaResources()
+        {
+            FishImage.Source = Settings.Default.ShowFish && FishImage.Source == null
+                ? new BitmapImage(new Uri("res/fish.png", UriKind.Relative))
+                : null;
+            _player = Settings.Default.IsSoundEnabled ? new SoundPlayer("res/fish.wav") : null;
         }
 
         private void TaskbarIcon_OnTrayLeftMouseUp(object sender, RoutedEventArgs e)
